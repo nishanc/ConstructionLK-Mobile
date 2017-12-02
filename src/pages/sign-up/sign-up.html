@@ -1,0 +1,130 @@
+<!--
+  Generated template for the SignUpPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="secondary">
+    <ion-title>Create an account</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="pageBg">
+
+
+
+  <ion-card>
+    <ion-card-content>
+      <form novalidate [formGroup]="FrmSignup" (ngSubmit)="postSignup(FrmSignup)">
+
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input formControlName="Username" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="FrmSignup.get('Username').hasError('required')|| FrmSignup.get('Username').hasError('pattern') && FrmSignup.get('Username').touched">
+            <p class="error" *ngIf="FrmSignup.get('Username').hasError('required') && FrmSignup.get('Username').touched">Sorry, field Password is required!</p>
+            <p class="error" *ngIf="FrmSignup.get('Username').hasError('pattern') && FrmSignup.get('Username').touched">Sorry, Insert valid email!</p>
+
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" value="" formControlName="Password"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="FrmSignup.get('Password').hasError('required')||FrmSignup.get('Password').hasError('minlength') && FrmSignup.get('Password').touched">
+            <p class="error" *ngIf="FrmSignup.get('Password').hasError('required') && FrmSignup.get('Password').touched">Sorry, field Password is required!</p>
+            <p class="error" *ngIf="FrmSignup.get('Password').hasError('minlength') && FrmSignup.get('Password').touched">Sorry, minimum password length is 8!</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Confirm Password</ion-label>
+            <ion-input formControlName="ConfirmPassword" type="password"></ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf="(FrmSignup.get('ConfirmPassword').hasError('equalTo')||FrmSignup.get('ConfirmPassword').hasError('required'))&& FrmSignup.get('ConfirmPassword').touched">
+
+            <p class="error" *ngIf="FrmSignup.get('ConfirmPassword').hasError('required') && FrmSignup.get('ConfirmPassword').touched">
+              Confirm password is required
+            </p>
+            <p class="error" *ngIf="FrmSignup.get('ConfirmPassword').hasError('equalTo') && FrmSignup.get('ConfirmPassword').touched">
+              Password Mismatch
+            </p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-input formControlName="FirstName" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="FrmSignup.get('FirstName').hasError('required') && FrmSignup.get('FirstName').touched">
+            <p class="error" *ngIf="FrmSignup.get('FirstName').hasError('required') && FrmSignup.get('FirstName').touched">Sorry, field First Name is required!</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Last Name</ion-label>
+            <ion-input formControlName="LastName" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="FrmSignup.get('LastName').hasError('required') && FrmSignup.get('LastName').touched">
+            <p class="error" *ngIf="FrmSignup.get('LastName').hasError('required') && FrmSignup.get('LastName').touched">Sorry, field Last Name is required!</p>
+          </ion-item>
+
+
+
+          <ion-item>
+            <ion-label floating>Mobile Number</ion-label>
+            <ion-input formControlName="Telephone" type="number"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="FrmSignup.get('Telephone').hasError('required')|| FrmSignup.get('Telephone').hasError('minlength') && FrmSignup.get('Telephone').touched">
+            <p class="error" *ngIf="FrmSignup.get('Telephone').hasError('required') && FrmSignup.get('Telephone').touched">Sorry, field Mobile is required!</p>
+            <p class="error" *ngIf="FrmSignup.get('Telephone').hasError('minlength') && FrmSignup.get('Telephone').touched">Sorry, Insert valid Mobile!</p>
+
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label floating>Current Address</ion-label>
+            <ion-input formControlName="Address" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="FrmSignup.get('Address').hasError('required') && FrmSignup.get('Address').touched">
+            <p class="error" *ngIf="FrmSignup.get('Address').hasError('required') && FrmSignup.get('Address').touched">Sorry, field Address is required!</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Date of Birth</ion-label>
+            <ion-input formControlName="DOB" type="text"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="FrmSignup.get('DOB').hasError('required') && FrmSignup.get('DOB').touched">
+            <p class="error" *ngIf="FrmSignup.get('DOB').hasError('required') && FrmSignup.get('DOB').touched">Sorry, field Address is required!</p>
+          </ion-item>
+
+          <ion-list radio-group formControlName="Gender">
+
+            <ion-card>
+              <ion-item>
+                <ion-label>Male</ion-label>
+                <ion-radio checked="true" value="male"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Female</ion-label>
+                <ion-radio value="female"></ion-radio>
+              </ion-item>
+            </ion-card>
+
+          </ion-list>
+          
+          
+          <ion-list>
+            <button ion-button color="secondary" (click)="postSignup()" block type="submit" [disabled]="!FrmSignup.valid">SignUp</button>
+          </ion-list>
+        </ion-list>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

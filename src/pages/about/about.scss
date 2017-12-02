@@ -1,0 +1,18 @@
+page-about {
+    .pageBg{
+        background-color: #002B36;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 10pt;
+    }
+    ion-card.card{
+        box-shadow: 2px;
+        background: rgba(206, 109, 109, 0.5);
+        border-radius: 10px;
+        font-size: 20pt;
+        color: rgb(255, 102, 0)     
+      }
+}

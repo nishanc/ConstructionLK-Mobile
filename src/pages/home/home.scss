@@ -1,0 +1,115 @@
+page-home {
+    .splash-bg {
+      position: relative;
+      background: url('../assets/img/splashbg.png') no-repeat transparent;
+      background-size: cover;
+      height: 165px;
+      z-index: 0;
+      background-repeat: repeat-x;
+      animation: animatedBackground 40s linear infinite;
+    }
+    
+    .pageBg{
+        background-color: #002B36;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 10pt;
+     }
+
+    @keyframes animatedBackground {
+      from { background-position: 0 0; }
+      to { background-position: 100% 0; }
+    }
+  
+    .splash-info {
+      position: relative;
+      z-index: 2;
+      margin-top: -64px;
+      text-align: center;
+    }
+    .splash-logo {
+      margin: auto;
+      background: url('../assets/img/appicon.png') repeat transparent;
+      background-size: 100%;
+      width: 135px;
+      height: 135px;
+    }
+    .splash-intro {
+      font-size: 18px;
+      font-weight: bold;
+      max-width: 80%;
+      margin: auto;
+    }
+    .btn{
+      margin-top: 10px;     
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+      color: #FFFFFF;
+      border-radius: 3px;
+      font-size: 11pt;
+      &.activated {
+        background-color: rgb(0, 45, 170);
+      }
+     
+    }
+    ion-card.card{
+      box-shadow: 2px;
+      background:#665d4f;
+      border-radius: 5px;
+      font-size: 15pt;  
+      padding: 20px;
+      margin-bottom: 40px !important;
+    }
+    
+    .item{
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      border:medium none;
+      border-radius: 5px;
+      height: 20px;
+      .text-input,{
+        color:rgb(3, 3, 3);
+        font-size: 13pt;
+        font-weight: bold;
+        text-align: center;
+      }
+      *:-moz-placeholder{
+        color: #fff!important;
+      }
+      *:-ms-input-placeholder {
+        color: white;
+      }
+      *::-webkit-input-placeholder{
+        color: #fff!important;
+      }
+      input::-moz-placeholder{
+        color: #fff!important;
+      }
+      input:-moz-placeholder{
+        color: #fff!important;
+      }
+    }
+    
+    
+    .text-input:-ms-input-placeholder {
+      color: white;
+    }
+    
+    .text-input::-webkit-input-placeholder {
+      text-indent: 0;
+      color: white;
+    }
+    p.p{
+      color: #FFFFFF;
+      font-size: 15pt;
+    }
+    a.a{
+      color: rgb(216, 218, 217);
+      font-size: 11pt;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+  }
+  

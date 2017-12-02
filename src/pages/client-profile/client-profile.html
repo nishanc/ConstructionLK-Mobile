@@ -1,0 +1,158 @@
+<ion-header>
+
+  <ion-navbar color="secondary">
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar (keyup) = "searchService($event)"  placeholder="Search a service..."></ion-searchbar>
+    <div *ngIf = "repos">
+        <ion-list>
+        <ion-item *ngFor = "let res of repos">
+          <ion-avatar item-start>
+            <img src= "{{ res.owner.avatar_url }}">
+          </ion-avatar>
+          <h2>{{ res.name }}</h2>
+          <p><ion-badge item-right>{{ res.full_name }}</ion-badge></p>
+          <p><ion-badge item-right>{{ res.name }}</ion-badge></p>
+          <ion-badge item-right><button ion-button (click) =  "moreSearchData(res.id)">More</button></ion-badge>
+        </ion-item>
+      </ion-list>
+      </div>
+  </ion-toolbar>
+ 
+</ion-header>
+
+
+<ion-content padding class="pageBg">
+    
+    <ion-select name = "language" [(ngModel)]='language'>
+        <ion-option value = "Java">Java</ion-option>
+        <ion-option value = "PHP">PHP</ion-option>
+        <ion-option value = "Ruby">Ruby</ion-option>
+      </ion-select>
+    
+  <ion-segment [(ngModel)]="ClientMenu" color="primary">
+   
+    <ion-segment-button value="home">
+      <ion-icon name="home"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="settings">
+      <ion-icon name="settings"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="ClientMenu">
+    <!--_________________Profile tab_____________
+    <ion-list *ngSwitchCase="'profile'">
+      <ion-img class="Style_img" src="../assets/img/profile.jpg"></ion-img>
+      <ion-list>
+        <ion-item text-wrap *ngFor="let item of ClintProfileData">
+          <p>{{item.data.FirstName}}</p>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+    _________________Home tab_____________-->
+
+    <ion-list *ngSwitchCase="'home'">
+
+      <ion-card>
+        <ion-card-title>
+          Explore Nearby
+        </ion-card-title>
+
+        <ion-list>
+          <button ion-item (click)="clkElectrician()">
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-12.png">
+            </ion-thumbnail>
+            Electrician
+          </button>
+
+          <button ion-item (click)="clkACServic()">
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-06.png">
+            </ion-thumbnail>
+            A/C Servic
+          </button>
+          <button ion-item (click)="clkPlumber()">
+              <ion-thumbnail item-start>
+                <img src="../assets/img/AWA-10.png">
+              </ion-thumbnail>
+              Plumber
+            </button>
+            <button ion-item (click)="clkWelding()">
+                <ion-thumbnail item-start>
+                  <img src="../assets/img/AWA-15.png">
+                </ion-thumbnail>
+                Welding
+              </button>
+              <button ion-item (click)="clkComputerNetworking()">
+                  <ion-thumbnail item-start>
+                    <img src="../assets/img/AWA-13.png">
+                  </ion-thumbnail>
+                  Computer Networking
+                </button>
+                <button ion-item (click)="clkPainter()">
+                    <ion-thumbnail item-start>
+                      <img src="../assets/img/AWA-18.png">
+                    </ion-thumbnail>
+                    Painter
+                  </button>
+                  
+                    <button ion-item (click)="clkLandscaping()">
+                        <ion-thumbnail item-start>
+                          <img src="../assets/img/AWA-09.png">
+                        </ion-thumbnail>
+                        Landscaping
+                      </button>
+        </ion-list>
+      </ion-card>
+    </ion-list>
+
+
+      
+      
+    <!--_________________Settings tab_____________-->
+    <ion-list *ngSwitchCase="'settings'">
+      <ion-item>
+        <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+          <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+          <div class="profile-image-wrapper" (click)="getPicture()">
+            <div class="profile-image-placeholder" *ngIf="!this.form.controls.profilePic.value">
+              <ion-icon name="add"></ion-icon>
+              <div>
+                choose profile picture
+              </div>
+            </div>
+            <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.profilePic.value"></div>
+          </div>
+
+          <ion-list>
+            <ion-item>
+              <ion-input type="text" placeholder="First Name" formControlName="about"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="text" placeholder="Last Name" formControlName="about"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="text" placeholder="Name" formControlName="about"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="Age" formControlName="about"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" placeholder="Mobile" formControlName="about"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="text" placeholder="Email" formControlName="about"></ion-input>
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-item>
+
+      <ion-item>
+        <h2>settings</h2>
+      </ion-item>
+      ...
+    </ion-list>
+  </div>
+</ion-content>

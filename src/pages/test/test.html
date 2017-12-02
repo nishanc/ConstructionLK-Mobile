@@ -1,0 +1,94 @@
+<!--
+  Generated template for the TestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar *navbar>
+    <ion-title>test</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <button ion-button color="secondary" (click)="getTest()" block>GET user data</button>
+    <button ion-button color="secondary" (click)="getTestInView()" block>GET data to view</button>
+  
+    <button ion-button color="secondary" (click)="getJsonToVar()" block>Get data to var</button>
+    <button ion-button color="secondary" (click)="getToken()" block>Get Token</button>
+    <!-- <ion-list>
+      <ion-item *ngFor="let job of jobs">
+      <h2>{{job.name}}</h2>
+      <h3>{{job.desc}}</h3>
+      </ion-item>
+    </ion-list> -->
+    <ion-card>
+    <ion-card-content>
+      <form [formGroup]="FrmSignup" (ngSubmit)="onSubmit()">
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input  formControlName="txtUsername" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input  formControlName="txtPassword" type="password"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-input  formControlName="txtFname" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Last Name</ion-label>
+            <ion-input  formControlName="txtLname" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input  formControlName="txtEmail" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Mobile Number</ion-label>
+            <ion-input   formControlName="txtMobile" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Current Address</ion-label>
+            <ion-input  formControlName="txtAddress" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label floating>Date of Birth</ion-label>
+              <ion-input  formControlName="txtDoB" type="text"></ion-input>
+            </ion-item>
+          
+          <ion-list radio-group>
+            <ion-item>
+              Gender
+            </ion-item>
+            <ion-card>
+              <ion-item>
+                <ion-label>Male</ion-label>
+                <ion-radio checked="true" value="male"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Female</ion-label>
+                <ion-radio value="female"></ion-radio>
+              </ion-item>
+            </ion-card>
+            <div class="divGend">
+
+            </div>
+          </ion-list>
+          <ion-list>
+            <button ion-button color="secondary"  block type="submit" [disabled]="FrmSignup.valid">SignUp</button>
+          </ion-list>
+        </ion-list>
+
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

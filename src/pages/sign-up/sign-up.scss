@@ -1,0 +1,37 @@
+page-sign-up {
+    .pageBg{
+        background-color: #002B36;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 10pt;
+     }
+     .divGend{
+         margin-left: 10px;
+         margin-right: 10px;
+     }
+     scroll-content {
+        overflow-y: auto;
+     }
+     ion-card.card{
+        box-shadow: 2px;
+        background: rgba(206, 109, 109, 0.5);
+        border-radius: 5px;
+        font-size: 10pt;     
+      }
+      p{
+        border-style: solid;
+        border-color: red;
+        border-width: 1px;
+        background-color: rgb(224, 155, 155);
+        border-radius: 5px;
+        height: 25px;
+        text-align: center;
+        padding: 3px;
+        color:rgb(209, 186, 186);
+        
+    
+      }
+}
