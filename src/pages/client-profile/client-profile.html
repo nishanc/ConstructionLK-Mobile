@@ -1,10 +1,11 @@
 <ion-header>
 
-  <ion-navbar color="secondary">
-    <ion-title>Home</ion-title>
+  <ion-navbar hideBackButton color="secondary">
+    <ion-title>Customer</ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar (keyup) = "searchService($event)"  placeholder="Search a service..."></ion-searchbar>
+    <ion-searchbar (keyup) = "searchtestService($event)"  placeholder="Search a service..."></ion-searchbar>
+    <ion-searchbar (keyup) = "searchService($event)"  placeholder="Search a test service..."></ion-searchbar>
     <div *ngIf = "repos">
         <ion-list>
         <ion-item *ngFor = "let res of repos">
@@ -18,6 +19,19 @@
         </ion-item>
       </ion-list>
       </div>
+      <div  *ngIf = "services">
+          <ion-list>
+          <ion-item *ngFor = "let ser of services">
+             <!-- <ion-avatar item-start>
+              <img src= "../assets/img/User.png">
+            </ion-avatar>
+             <h2>{{ service.Name }}</h2>
+            <p><ion-badge item-right>{{ service.Provider }}</ion-badge></p>
+            <p><ion-badge item-right>{{ service.SubCat }}</ion-badge></p> 
+            <ion-badge item-right><button ion-button (click) =  "moreSearchData(res.id)">More</button></ion-badge> -->
+          </ion-item>
+        </ion-list>
+        </div>
   </ion-toolbar>
  
 </ion-header>
@@ -33,7 +47,7 @@
     
   <ion-segment [(ngModel)]="ClientMenu" color="primary">
    
-    <ion-segment-button value="home">
+    <ion-segment-button  value="home">
       <ion-icon name="home"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="settings">
@@ -108,51 +122,52 @@
       </ion-card>
     </ion-list>
 
-
-      
-      
     <!--_________________Settings tab_____________-->
     <ion-list *ngSwitchCase="'settings'">
-      <ion-item>
-        <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
-          <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
-          <div class="profile-image-wrapper" (click)="getPicture()">
-            <div class="profile-image-placeholder" *ngIf="!this.form.controls.profilePic.value">
-              <ion-icon name="add"></ion-icon>
-              <div>
-                choose profile picture
-              </div>
-            </div>
-            <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.profilePic.value"></div>
-          </div>
-
-          <ion-list>
-            <ion-item>
-              <ion-input type="text" placeholder="First Name" formControlName="about"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="text" placeholder="Last Name" formControlName="about"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="text" placeholder="Name" formControlName="about"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="number" placeholder="Age" formControlName="about"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="number" placeholder="Mobile" formControlName="about"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="text" placeholder="Email" formControlName="about"></ion-input>
-            </ion-item>
-          </ion-list>
-        </form>
-      </ion-item>
-
-      <ion-item>
-        <h2>settings</h2>
-      </ion-item>
-      ...
+       
+        <ion-card>
+            <ion-card-title>
+                Change Account settings
+              </ion-card-title>
+          <ion-card-content>
+            <form novalidate [formGroup]="FrmUpdateProfile" (ngSubmit)="updateProfile(FrmUpdateProfile)">
+      
+              <ion-list >
+      
+                <ion-item>
+                  <ion-label floating>First Name</ion-label>
+                  <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'>{{userData.FirstName}}</ion-input>
+                </ion-item>
+               
+      
+                <ion-item>
+                  <ion-label floating>Last Name</ion-label>
+                  <ion-input formControlName="LastName" type="text" value='{{userData.LastName}}'></ion-input>
+                </ion-item>
+                <ion-item >
+                    <ion-label floating>Mobile Number</ion-label>
+                    <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="number"></ion-input>
+                  </ion-item>
+                <ion-item>
+                  <ion-label floating>Current Address</ion-label>
+                  <ion-input formControlName="Address" value='{{userData.Address}}' type="text"></ion-input>
+                </ion-item>
+                
+      
+                <ion-item>
+                  <ion-label floating>Date of Birth</ion-label>
+                  <ion-input formControlName="DateOfBirth" type="text" value='{{userData.DateOfBirth}}' placeholder="dd/mm/yyyy"></ion-input>
+                </ion-item>
+      
+                <ion-item>
+                  <button ion-button color="secondary" (click)="updateProfile()" block type="submit" >Save</button>
+                </ion-item>
+              </ion-list>
+      
+            </form>
+          </ion-card-content>
+        </ion-card>
+        
     </ion-list>
   </div>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, AlertController } from 'ionic-angular';
 import { FormGroup, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 import { RequestOptions, Headers, Http } from '@angular/http';
 
@@ -17,7 +17,8 @@ export class SignUpPage implements OnInit {
 
   constructor(public slideMenu: MenuController,
     public navCtrl: NavController,
-    public http: Http) {
+    public http: Http,
+    private alertCtrl: AlertController,) {
 
   }
   equalto(field_name): ValidatorFn {
@@ -57,9 +58,7 @@ export class SignUpPage implements OnInit {
     var headers = new Headers();
     headers.append("Accept", 'application/json');
 
-    let options = new RequestOptions({ headers: headers });
-    //let postParams = this.FrmSignup.value;
-  
+    let options = new RequestOptions({ headers: headers });    
     this.RegDetails=this.FrmSignup.value;
     this.RegDetails.Subcribe=true;
     let postParams =  this.RegDetails;
@@ -69,7 +68,12 @@ export class SignUpPage implements OnInit {
         alert("Registration succesfull");
         console.log("Registration succesfull");
       }, error => {
-        alert(error);
+        let alert = this.alertCtrl.create({
+          title: 'Sorry',
+          subTitle: error._body,
+          buttons: ['OK']
+        });
+        alert.present();
         console.log(error);
       })
   }

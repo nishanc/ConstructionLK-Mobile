@@ -1,13 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-declare var google;
-/**
- * Generated class for the UserMapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { MapDirctionsPage } from '../map-dirctions/map-dirctions';
+
+declare var google: any;
 
 @IonicPage()
 @Component({
@@ -15,63 +12,61 @@ declare var google;
   templateUrl: 'user-map.html',
 })
 export class UserMapPage {
+  lng: any;
+  lat: any;
   map: any;
-  @ViewChild('map') mapElement;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
-  }
-
-  ionViewDidLoad() {    
-    this.initMap();
-  }
-  initMap() {
-  // let latLng = new google.maps.LatLng(6.7969, 79.9018);
-  //   let mapOption = {
-  //     center: latLng,
-  //     zoom: 15,
-  //     mapTypeId: google.maps.MapTypeId.ROADMAP
-  //   };
-  //   var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-  //   var marker = new google.maps.Marker({
-  //     position: latLng,
-  //     map: this.map,
-  //     icon: image
-  //   });
-  this.geolocation.getCurrentPosition().then((position) => {
-    
-    let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    console.log(position);
-    let mapOptions = {
-           center: latLng,
-           zoom: 15,
-           mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-  },(err)=>{
-    console.log(err);
-  });
-
-}
-  getGeoLocation() {
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+  myLocation:any;
+  @ViewChild('map') mapElement: ElementRef;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private geolocation: Geolocation,
+    private platform: Platform
+  ) {
+    platform.ready().then(() => {
+      this.loadMap();
+      //this.getCurrentPosition()
     });
-   
-    let content = "<h4>Information!</h4>";         
-   
-    this.addInfoWindow(marker, content);
   }
-  addInfoWindow(marker, content){
-    
-     let infoWindow = new google.maps.InfoWindow({
-       content: content
-     });
-    
-     google.maps.event.addListener(marker, 'click', () => {
-       infoWindow.open(this.map, marker);
-     });
-    
-   }
+
+
+  loadMap() {
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      this.lng = data.coords.latitude;
+      this.lat = data.coords.longitude;
+      this.myLocation = new LatLng(this.lat, this.lng);
+     // alert(location);
+      this.map = new GoogleMap('map', {
+
+        'controls': {
+          'compass': true,
+          'myLocationButton': true,
+          'indoorPicker': true,
+          'zoom': true
+        },
+        'gestures': {
+          'scroll': true,
+          'tilt': true,
+          'rotate': true,
+          'zoom': true
+        },
+        'camera': {
+          'tilt': 30,
+          'zoom': 15,
+          'bearing': 50
+        }
+      });
+
+      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+        console.log('Map is ready!');
+      });
+    });
+  }
+  getMyLocation() {    
+    alert(this.lat+""+ this.lng);
+    this.navCtrl.push(MapDirctionsPage,{ lat : this.lat, lng : this.lng});
+  }
 }
+
+

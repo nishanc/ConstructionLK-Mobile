@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, MenuController, LoadingController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
-import { Http } from '@angular/http';
+import { Http,Headers } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 import { ProvidersearchResultsProvider } from '../../providers/providersearch-results/providersearch-results';
 import { SearchResultPage } from '../search-result/search-result';
-
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -14,18 +14,22 @@ import { SearchResultPage } from '../search-result/search-result';
   templateUrl: 'client-profile.html',
 })
 export class ProfilePage {
-  [x: string]: any;
-
+  
   @ViewChild('fileInput') fileInput;
-  isReadyToSave: boolean;
-  item: any;
-  form: FormGroup;
-  Id: any;
-  ClintProfileData : any;
-  loading : any;
-  //language: String ; //serach
-  repos :any;//search
 
+  private isReadyToSave: boolean;
+  private item: any;
+  private FrmUpdateProfile: FormGroup;
+  private Id: any;
+  private searchData: any;
+  private servicesArray: any;
+  private loading : any;
+  private ClintProfileData : any;
+  private services : any;  
+  private repos :any;//search
+
+  [x: string]: any;
+  
   constructor( public http:Http, 
     public alertController: AlertController,
     public slideMenu: MenuController,
@@ -33,27 +37,50 @@ export class ProfilePage {
     public loadingCtrl:LoadingController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public  formBuilder: FormBuilder,
+    public formBuilder: FormBuilder,
     public camera: Camera,
+    public storage: Storage,
     public searchResultsProvider:ProvidersearchResultsProvider) {
 
     this.ClientMenu="home";
-    this.form = formBuilder.group({
-      profilePic: [''],
-      name: ['', Validators.required],
-      about: ['']
-
-    });
-
-    this.form.valueChanges.subscribe((v) => {
-      this.isReadyToSave = this.form.valid;
-    });
-
     this.slideMenu.swipeEnable(true);
+    this.FrmUpdateProfile = this.formBuilder.group({
+      
+            FirstName:  [''],
+            LastName:  [''],            
+            Address: [''],           
+            Telephone:  [''],
+            DateOfBirth:  [''],
+            
+          });
+          this.storage.get('StoredToken').then((token) => {
+            this.getLoginUserData(token);            
+          });
+  }
+  getLoginUserData(Token: String) {
+   
+    this.autharization = 'Bearer '+Token; 
+    var headers = new Headers();
+    headers.append('Authorization',this.autharization);
+    headers.append('Accept', 'application/json');
+    this.http.get('http://constructionlkapi.azurewebsites.net/customer/GetCustomerProfile', { headers: headers }).map(res => res.json())
+    .subscribe(data => {
+      this.userData = data;
+      this.userId = this.userData.Id;
+      this.storage.set('StoredID', this.userId);
+    
+    }, error => {
+      console.log(error);
+    })
+    this.storage.get('StoredToken').then((val) => {
+      console.log('Stored token is', val);
+    });    
+  }
+  updateProfile(){
 
   }
   //___________________Search engine part___________
-  searchService(key:any){
+  searchtestService(key:any){
     console.log(key.target.value);
     console.log(this.language);
 
@@ -64,41 +91,34 @@ export class ProfilePage {
     this.searchResultsProvider.searchRepo(searchKeyData).subscribe(res => {
       //console.log(res);
       this.repos = res.items;
+      console.log(this.repos);
     });
+  }
+  searchService($event){
+    var headers = new Headers();
+    //headers.append('Authorization',this.autharization);
+    headers.append('Accept', 'application/json');
+    this.http.get('http://constructionlkapi.azurewebsites.net/Search/FindByWord', { headers: headers }).map(res => res.json())
+    .subscribe(data => {
+      this.searchData = data;
+      console.log(this.searchData);
+      this.servicesArray = this.searchData.Services;
+      this.services = this.servicesArray[0];
+      //console.log(this.servicesArray);
+      console.log(this.services[1]);
+      
+     // console.log(this.searchData);
+    }, error => {
+      console.log(error);
+    })
+        
   }
   moreSearchData(id){
     console.log(id);
     this.navCtrl.push(SearchResultPage,{id:id});
   }
   //-------------------------------------------------
-  getPicture() {
-    if (Camera['installed']()) {
-      this.camera.getPicture({
-        destinationType: this.camera.DestinationType.DATA_URL,
-        targetWidth: 96,
-        targetHeight: 96
-      }).then((data) => {
-        this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
-      }, (err) => {
-        alert('Unable to take photo');
-      })
-    } else {
-      this.fileInput.nativeElement.click();
-    }
-  }
-  processWebImage(event) {
-    let reader = new FileReader();
-    reader.onload = (readerEvent) => {
-
-      let imageData = (readerEvent.target as any).result;
-      this.form.patchValue({ 'profilePic': imageData });
-    };
-
-    reader.readAsDataURL(event.target.files[0]);
-  }
-  getProfileImageStyle() {
-    return 'url(' + this.form.controls['profilePic'].value + ')'
-  }
+  
   clkElectrician(){
     
     // let confirm = this. alertController.create({

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { Http ,Headers,RequestOptions} from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { AbstractControlDirective } from '@angular/forms/src/directives/abstract_control_directive';
+import { Storage } from '@ionic/storage';
 
-
+//import { LoadingController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -16,95 +16,103 @@ import { AbstractControlDirective } from '@angular/forms/src/directives/abstract
 })
 export class TestPage {
   Token: any;
-  RealTok :any;
+  RealTok: any;
   users: Observable<any>;
-  private FrmSignup : FormGroup
-  
-  public jobs:any;
-  newsData : any;
-  loading : any;
-  
-   constructor(public navCtrl: NavController,   
-     public navParams: NavParams,    
-     public loadingCtrl:LoadingController, 
-     public http:Http ,
-     private LoginFormBuilder:FormBuilder
-     ) {
+  private FrmSignup: FormGroup
 
-    this.loading = this.loadingCtrl.create({
-      content:` <ion-spinner></ion-spinner>`
-    });
+  public jobs: any;
+  newsData: any;
+  loading: any;
+  UserData : any;
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public loadingController: LoadingController,
+    public http: Http,
+    private LoginFormBuilder: FormBuilder,
+    public storage: Storage
+  ) {
+
+   
     this.FrmSignup = this.LoginFormBuilder.group({
-      txtFname:['',Validators.required],
-      txtLname:['',Validators.required],
-      txtEmail:['',Validators.compose([Validators.maxLength(30), Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'), Validators.required])],
-      txtMobile:['',Validators.compose([Validators.minLength(10),Validators.maxLength(10), Validators.required])],
-      txtUsername:['',Validators.required],
-      txtPassword:['',Validators.compose([Validators.minLength(10), Validators.required])],      
-      txtAddress:['',Validators.required],
-      txtDoB:['',Validators.required]
+      txtFname: ['', Validators.required],
+      txtLname: ['', Validators.required],
+      txtEmail: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'), Validators.required])],
+      txtMobile: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(10), Validators.required])],
+      txtUsername: ['', Validators.required],
+      txtPassword: ['', Validators.compose([Validators.minLength(10), Validators.required])],
+      txtAddress: ['', Validators.required],
+      txtDoB: ['', Validators.required]
     });
   }
-  onSubmit() { 
+  onSubmit() {
     //this.username = this.FrmSignup.controls['txtUsername']; 
-    console.log(this.FrmSignup.value);   
-  }   
+    console.log(this.FrmSignup.value);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TestPage');
   }
-  getTest(){
-  //   var headers = new Headers();
-  //   headers.append('Authorization','Bearer Veg37PVYad398oOCNJOqw23DL4wxsnrAeeQ1LyPX8ABt_nBqewreW0oI7x5PcgjCwez0DfhhZ1DSkQ0ImfxvD3GudLc2vLGLLFM_R79eDU5Gw7WWv8zGe4cTbU0t87a-qvhfxiNXf5ZSdBCdr8oG8p5OSFzJ92qu_-tFTVDWiPxRLDEFvrbMtLc-bUakxGFBGfHvbHWImCuFP7Fy51bNDMY1cZFGrPyVC_YGyEBo6McFs7rme-EmH2jF4wYpBLDzzS5NC2WPeTyezMhUIDzhyobbJAsag1RE5hsra5K0HjAYTz7Avw5LDXWuRT03OhWmoQQyO-vPOp0PhA8GJPCJG8X1vKfY8BtF3CY7-UA9OoLhTod6-cLnaB-F5rHjgLFKG-MgWF48G3PAr4UhsU4e2h_6q89q6cjeXkgZVWliXIc8BJ89E_AMXom5OdDS8pCKomUHtjKGIHIveQ9BcLC4rKKAS287FynMKUlhIbpeAHE');
-  //   headers.append('Accept', 'application/json');
-  //   this.http.get('http://localhost:50176/api/account/getprofile?id=101',{headers: headers}).subscribe (data => {
-  //   console.log("Got Data",data);
-      
-  // });
-  this.users = this.http.get('http://constructionlk.azurewebsites.net/api/customers/101');
-  this.users.map(res => res.json()).subscribe(data=>{
-    console.log('Address:',data);
-  })
-  
+  getTest() {
+    let loading = this.loadingController.create({content : "Logging in ,please wait..."});
+    loading.present();
+      var headers = new Headers();
+      headers.append('Authorization','Bearer vcWMM9APrGQ09sqlfQTuyR76u4emqhYT0BKDgjCxG4ZN_LMPyaRP8H4LayLY_O2ilXoa3kCSygn73CWzRd84KkyLjlqvgZ_osvQy9RDBa3XrQovYdftLQu_hEFCZRKJQivnqm-DX9Wu2SB3eIxLnuCtthIDHi0nzgS40wJsqt-LwhkiJmKxQYpO0oVWoZQyu4B6jwliPhNcrPRqrYfmS7K7S3ZxdbCI2Uv7Nh-rgViYGwaArRD3V7qFN0bRx5ypgfft-d4M6CTdRYyv0d6V8_O6jFnz25IF_xIz6M3uZu6Q02IRthGQSS04BxRCHC3sJQUk9TgxYDGsHRizHOi6TSIzsdclMYm091RxRrM0Dta6lgOLgXeLRPAy8UUCkGsuahyGkwF3xXyQOuEjEVHNAE0Gzyf7sm3aGSBsz80yHL1xTngIJokOG1AbJMwKk1HY8pcwBPj6oedXc8h8laCO8sRcqmTeD-TmA72jHmIpJF0m6nJMVBjS8UN6CyST5BgkDeCR84CCzJw2DJqpBPdLiNt5nhhJiuxWKJ21MlEi05RA');
+      headers.append('Accept', 'application/json');
+      this.http.get('http://constructionlkapi.azurewebsites.net/customer/GetCustomerProfile',{headers: headers}).map(res => res.json()).
+      subscribe (data => {
+      this.UserData = data;
+      console.log("Got Data",this.UserData.Address);
+      loading.dismissAll();
+    });
+    // this.users = this.http.get('http://constructionlk.azurewebsites.net/api/customers/101');
+    // this.users.map(res => res.json()).subscribe(data => {
+    //   console.log('Address:', data);
+    // })
+
   }
- 
-  getTestInView(){
-     this.http.get('https://jsonplaceholder.typicode.com/posts').map(res => res.json()).subscribe(data=>{
+  
+
+  getTestInView() {
+    this.http.get('https://jsonplaceholder.typicode.com/posts').map(res => res.json()).subscribe(data => {
       this.newsData = data;
-     // console.log(data['_body']);
+      // console.log(data['_body']);
       //console.log(this.newsData);
       console.log(this.newsData[0].id);
       //this.jobs = data;
-      
-      
+
+
     })
-    
+
     // this.redditService.getRemoteData().subscribe(data => {   
-            
+
     //        this.jobs = data;
     //        console.log(this.jobs);
     //     });
   }
- 
-  getToken(){
-    let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8'});
+  //__________________________________________Token_________________________
+  getToken() {
+
+    // this.storage.get('StoredToken').then((val) => {
+    //   console.log('Stored token is', val);
+    // });
+    let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
     headers.append('Accept', 'application/json');
-    
-    let options = new RequestOptions({headers:headers});
-      let postParams ='username=NihanElephant@asadf.com&password=2@aAsdfsdfa&grant_type=password';
-    this.http.post('http://constructionlkapi.azurewebsites.net/token',postParams,options).map(res => res.json())
-    .subscribe(token=>{      
-      this.Token = token.access_token;              
-      console.log(this.Token);
-      
-      console.log(token.access_token);
-   //   console.log( this.Token._body);
-      // this.RealTok = this.Token._b.ody.access_token;
-      // console.log( this.RealTok);
-      //console.log( this.RealTok.access_token);
-    },error =>{
-      console.log(error);
-    })
+
+    let options = new RequestOptions({ headers: headers });
+    let postParams = 'username=NihanElephant@asadf.com&password=2@aAsdfsdfa&grant_type=password';
+    this.http.post('http://constructionlkapi.azurewebsites.net/token', postParams, options).map(res => res.json())
+      .subscribe(token => {
+        this.Token = token.access_token;              
+        console.log(this.Token);
+        this.storage.set('StoredToken', this.Token);
+        //this.getLoginUserData(this.Token);
+      }, error => {
+        console.log(error);
+      })
   }
-  
+  getLoginUserData(Token :String){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get("http://constructionlkapi.azurewebsites.net/customer/GetCustomerProfile").map(res => res.json()) 
+  }
 
 }

@@ -15,7 +15,7 @@
 
 <ion-content padding>
     <button ion-button color="secondary" (click)="getTest()" block>GET user data</button>
-    <button ion-button color="secondary" (click)="getTestInView()" block>GET data to view</button>
+    <button ion-button color="secondary" (click)="getTestInView()" block>GET Role</button>
   
     <button ion-button color="secondary" (click)="getJsonToVar()" block>Get data to var</button>
     <button ion-button color="secondary" (click)="getToken()" block>Get Token</button>
@@ -25,6 +25,10 @@
       <h3>{{job.desc}}</h3>
       </ion-item>
     </ion-list> -->
+    <ion-list *ngIf = "UserData">
+        <p>{{UserData.Address}}</p>
+    </ion-list>
+    
     <ion-card>
     <ion-card-content>
       <form [formGroup]="FrmSignup" (ngSubmit)="onSubmit()">

@@ -21,17 +21,15 @@ page-sign-up {
         border-radius: 5px;
         font-size: 10pt;     
       }
-      p{
-        border-style: solid;
-        border-color: red;
-        border-width: 1px;
-        background-color: rgb(224, 155, 155);
-        border-radius: 5px;
-        height: 25px;
+      p{    
         text-align: center;
         padding: 3px;
-        color:rgb(209, 186, 186);
-        
+        color:rgb(175, 13, 13);  
     
       }
-}
+      .item{
+          border: 0px;
+      }
+      
+    
+    }

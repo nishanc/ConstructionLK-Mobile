@@ -9,9 +9,12 @@ import { ProfilePage } from '../pages/client-profile/client-profile';
 import { TestPage } from '../pages/test/test';
 import { ConstructorProfilePage } from '../pages/constructor-profile/constructor-profile';
 import { Test2Page } from '../pages/test2/test2';
-
+import { PaymentsPage } from '../pages/payments/payments';
+import { MapDirctionsPage } from '../pages/map-dirctions/map-dirctions';
+//import { Storage } from '@ionic/storage';
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  //template: '<ion-nav *ngIf="showRoot" [root]="rootPage"></ion-nav>'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -20,14 +23,31 @@ export class MyApp {
   LocationPage:any;
   MainHomePage:any;
   AboutUsPage:any;
+  TempPaymentPage : any;
+  TempMapDirctionsPage : any;
   TempTestPage:any;
   TempTest2Page:any;
   TempConstructProfilpage: any;
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  
 
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen) {
+    this.initializeApp();
+    // this.storage.get('CurrntRootPage').then((logged) => {
+     
+    //     if(logged == 'ProfilePage'){
+    //       this.rootPage = ProfilePage;
+    //     }else if(logged == 'ConstructorProfilePage'){
+    //       this.nav.setRoot(ConstructorProfilePage);
+    //     }
+    
+    //     this.showRoot = true;
+    //   //console.log('Stored root is', val);
+    // });
     // used for an example of ngFor and navigation
     this.pages = [
      
@@ -37,7 +57,10 @@ export class MyApp {
       { title: 'Logout', component: HomePage },
       { title: 'About', component: AboutPage },
       { title: 'Constructer Home', component: ConstructorProfilePage },
-      { title: 'Test 2', component: Test2Page }
+      { title: 'Test 2', component: Test2Page },
+      { title: 'Paypal', component: PaymentsPage },
+      { title: 'Paypal', component: MapDirctionsPage }
+      
 
     ];
     this.LocationPage = this.pages[1];
@@ -46,6 +69,8 @@ export class MyApp {
     this.AboutUsPage = this.pages[3];
     this.TempConstructProfilpage = this.pages[4];
     this.TempTest2Page = this.pages[5];
+    
+    this.TempMapDirctionsPage = this.pages[7];
   }
 
   initializeApp() {
@@ -55,7 +80,9 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
   }
+ 
 
   openPage(page) {
     // Reset the content nav to have just this page
@@ -67,5 +94,7 @@ export class MyApp {
     this.TempTestPage = page;
     this.TempConstructProfilpage = page;
     this.TempTest2Page = page;
+    this.TempPaymentPage = page;
+    this.TempMapDirctionsPage = page;
   }
 }

@@ -18,6 +18,14 @@ import { Test2Page } from '../pages/test2/test2';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProvidersearchResultsProvider } from '../providers/providersearch-results/providersearch-results';
+import { ProviderGetUserProvider } from '../providers/provider-get-user/provider-get-user';
+import { PaymentsPage } from '../pages/payments/payments';
+import { PaymentsPageModule } from '../pages/payments/payments.module';
+import { PayPal } from '@ionic-native/paypal';
+import { AddServicePage } from '../pages/add-service/add-service';
+import { Diagnostic } from '@ionic-native/diagnostic';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { MapDirctionsPage } from '../pages/map-dirctions/map-dirctions';
 @NgModule({
   declarations: [
     MyApp,
@@ -27,6 +35,9 @@ import { ProvidersearchResultsProvider } from '../providers/providersearch-resul
     SignUpPage,
     UserMapPage,
     AboutPage,
+    PaymentsPage,
+    AddServicePage,
+    MapDirctionsPage,
     TestPage,
     ConstructorProfilePage,
     Test2Page
@@ -34,7 +45,9 @@ import { ProvidersearchResultsProvider } from '../providers/providersearch-resul
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    IonicStorageModule.forRoot(),
+    HttpModule,
+   // PaymentsPageModule
     
   ],
   bootstrap: [IonicApp],
@@ -46,18 +59,27 @@ import { ProvidersearchResultsProvider } from '../providers/providersearch-resul
     SignUpPage,
     UserMapPage,
     AboutPage,
+    PaymentsPage,
+    AddServicePage,
+    MapDirctionsPage,
     TestPage,
     ConstructorProfilePage,
     Test2Page
   ],
   providers: [
+    GoogleMaps,
+    Diagnostic,
     StatusBar,
     SplashScreen,
     Camera,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},   
     ProvidersearchResultsProvider,
-    IonicStorageModule
+    IonicStorageModule,
+    Storage,
+    ProviderGetUserProvider,
+    PayPal
+    
   ]
 })
 export class AppModule {}

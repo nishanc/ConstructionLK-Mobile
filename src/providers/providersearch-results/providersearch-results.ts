@@ -25,4 +25,12 @@ export class ProvidersearchResultsProvider {
     headers.append('Content-Type','application/json');
     return this.http.get("https://api.github.com/repositories/"+id).map(res => res.json())   
   }
+  
+  // getRequests(id){
+  //   let headers = new Headers();
+  //   headers.append('Content-Type','application/json');
+  //   return this.http.get("http://constructionlkapi.azurewebsites.net/ServiceProvider/GetJobs").map(res => res.json())    
+
+  // }
+
 }
