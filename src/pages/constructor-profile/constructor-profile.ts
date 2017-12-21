@@ -55,6 +55,11 @@ export class ConstructorProfilePage {
       this.getLoginUserData(token);      
     });
   }
+//________________show offered services_________
+getMyServices(){
+  
+}
+//________________show  Client requests_________
   getRequests() {
     let loading = this.loadingController.create({content : "Loading..."});
     loading.present();
@@ -77,7 +82,10 @@ export class ConstructorProfilePage {
     });
     loading.dismissAll();
   }
-
+  moreSearchData(id){
+    console.log(id);
+    //this.navCtrl.push(SearchResultPage,{id:id});
+  }
 
   getLoginUserData(Token: String) {
     let loading = this.loadingController.create({content : "Loading..."});

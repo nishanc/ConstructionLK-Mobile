@@ -80,7 +80,6 @@
     <allow-navigation href="http://192.168.8.100:8100" />
     <allow-navigation href="http://192.168.8.101:8100" />
     <engine name="android" spec="^6.2.3" />
-    <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
@@ -95,4 +94,5 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCPj39B9UGbnS6eAXGlBYGcqyyQJk5EdA0" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCPj39B9UGbnS6eAXGlBYGcqyyQJk5EdA0" />
     </plugin>
+    <plugin name="cordova-plugin-stripe" spec="^1.5.3" />
 </widget>

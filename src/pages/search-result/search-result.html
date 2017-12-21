@@ -12,9 +12,43 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content class="pageBg">
 
- 
-  
-  <p>Malith Wijesekara</p>
+  <ion-card>
+    <img src="../assets/img/User.png" />
+    <ion-card-content *ngIf="moreData">
+      <ion-card-title>
+        {{ moreData.Provider.Name }} {{ moreData.Provider.Rate }}
+        <ion-icon style="color:rgb(221, 177, 16)" name="star">
+        </ion-icon>
+      </ion-card-title>
+      <h3>
+        My service : {{ moreData.Description }}
+      </h3>
+      <h4>
+        Pricing : 
+      </h4>
+
+      <button ion-button height="45px" color="secondary" block (click)="pickLocation()">Send request</button>
+    </ion-card-content>
+  </ion-card>
+  <!-- <ion-card>
+
+    <ion-card-content>
+      <ion-card-title style="margin:auto">
+        Request this service
+      </ion-card-title>
+      <ion-item>
+        <ion-textarea type="text" placeholder="Write a message for service provider"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <div #map id="map" height="200px">
+        </div>
+      </ion-item>
+      <button ion-button height="45px" color="secondary" block>Send request</button>
+     
+    </ion-card-content>
+
+  </ion-card> -->
 </ion-content>

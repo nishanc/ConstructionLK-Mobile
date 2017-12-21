@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProvidersearchResultsProvider } from '../../providers/providersearch-results/providersearch-results';
+import { Http, Headers } from '@angular/http';
+import { TestPage } from '../test/test';
+
 
 
 /**
@@ -15,27 +18,43 @@ import { ProvidersearchResultsProvider } from '../../providers/providersearch-re
   selector: 'page-search-result',
   templateUrl: 'search-result.html',
 })
-export class SearchResultPage {
-  language: String ;
-  repos : any;
-  personData : any;
+export class SearchResultPage  {
+  
+  private searchURL: string;
+  private searchId: string;
+  private moreData: any;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public searchResultsProvider:ProvidersearchResultsProvider ) {
+    public searchResultsProvider: ProvidersearchResultsProvider,
+    public http: Http,    
+    private platform: Platform) {
   }
-  ionViewDidLoad() {    
-    console.log(this.navParams.get('id'));
-    this.searchResultsProvider.moreSearchRepo(this.navParams.get('id')).subscribe(res => {
-      console.log(res);
-      this.personData = res;
-    });
 
+  ionViewDidLoad() {
+    // console.log(this.navParams.get('id'));
+    this.searchId = this.navParams.get('id');
+    var headers = new Headers();
+    this.searchURL = 'http://constructionlkapi.azurewebsites.net/ItemService/GetServiceDetail?Id=' + this.searchId;
+    headers.append('Accept', 'application/json');
+    this.http.get(this.searchURL, { headers: headers }).map(res => res.json())
+      .subscribe(data => {
+        this.moreData = data;
+        console.log(this.moreData);
+
+      }, error => {
+        console.log(error);
+      })
   }
-  
-  
- 
-
-  
-  
-  
+  pickLocation(){
+    let id = this.searchId;
+    this.navCtrl.push(TestPage,{id:id});
+  }
 }
+
+
+
+
+
+
+

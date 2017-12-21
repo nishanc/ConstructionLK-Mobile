@@ -8,10 +8,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProfilePage } from '../pages/client-profile/client-profile';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { Camera } from '@ionic-native/camera';
-import { UserMapPage } from '../pages/user-map/user-map';
 import { SearchResultPage } from '../pages/search-result/search-result';
 import { AboutPage } from '../pages/about/about';
-import { TestPage } from '../pages/test/test';
 import { HttpModule } from '@angular/http';
 import { ConstructorProfilePage } from '../pages/constructor-profile/constructor-profile';
 import { Test2Page } from '../pages/test2/test2';
@@ -21,23 +19,28 @@ import { ProvidersearchResultsProvider } from '../providers/providersearch-resul
 import { ProviderGetUserProvider } from '../providers/provider-get-user/provider-get-user';
 import { PaymentsPage } from '../pages/payments/payments';
 import { PaymentsPageModule } from '../pages/payments/payments.module';
-import { PayPal } from '@ionic-native/paypal';
+import { Stripe } from '@ionic-native/stripe';
 import { AddServicePage } from '../pages/add-service/add-service';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { MapDirctionsPage } from '../pages/map-dirctions/map-dirctions';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { ProgressReviewPage } from '../pages/progress-review/progress-review';
+import { TestPage } from '../pages/test/test';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     SearchResultPage,
     ProfilePage,
-    SignUpPage,
-    UserMapPage,
+    SignUpPage,    
     AboutPage,
     PaymentsPage,
     AddServicePage,
     MapDirctionsPage,
+    ForgotPasswordPage,
+    ProgressReviewPage,
     TestPage,
     ConstructorProfilePage,
     Test2Page
@@ -56,12 +59,13 @@ import { MapDirctionsPage } from '../pages/map-dirctions/map-dirctions';
     HomePage,
     SearchResultPage,    
     ProfilePage,
-    SignUpPage,
-    UserMapPage,
+    SignUpPage,    
     AboutPage,
     PaymentsPage,
     AddServicePage,
     MapDirctionsPage,
+    ForgotPasswordPage,
+    ProgressReviewPage,
     TestPage,
     ConstructorProfilePage,
     Test2Page
@@ -78,7 +82,7 @@ import { MapDirctionsPage } from '../pages/map-dirctions/map-dirctions';
     IonicStorageModule,
     Storage,
     ProviderGetUserProvider,
-    PayPal
+    Stripe
     
   ]
 })

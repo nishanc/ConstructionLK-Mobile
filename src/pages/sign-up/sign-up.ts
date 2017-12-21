@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, Validators, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 import { RequestOptions, Headers, Http } from '@angular/http';
 
@@ -18,6 +18,7 @@ export class SignUpPage implements OnInit {
   constructor(public slideMenu: MenuController,
     public navCtrl: NavController,
     public http: Http,
+    public loadingController: LoadingController,    
     private alertCtrl: AlertController,) {
 
   }
@@ -64,9 +65,14 @@ export class SignUpPage implements OnInit {
     let postParams =  this.RegDetails;
     console.log(this.RegDetails);
     this.http.post('http://constructionlkapi.azurewebsites.net/api/account/register', postParams, options)
-      .subscribe(data => {
-        alert("Registration succesfull");
+      .subscribe(data => {        
         console.log("Registration succesfull");
+        let alert = this.alertCtrl.create({
+          title: 'Registration succesfull',          
+          buttons: ['OK']
+        });
+        alert.present();
+       
       }, error => {
         let alert = this.alertCtrl.create({
           title: 'Sorry',

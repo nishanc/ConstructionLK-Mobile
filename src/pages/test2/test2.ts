@@ -13,6 +13,8 @@ import {
   MarkerOptions,
   Marker
  } from '@ionic-native/google-maps';
+import { ProgressReviewPage } from '../progress-review/progress-review';
+import { AddServicePage } from '../add-service/add-service';
  
  
 @IonicPage()
@@ -32,6 +34,12 @@ export class Test2Page {
     private googleMaps: GoogleMaps) {
     //this.checkLocation();
 
+  }
+  newser(){
+    this.navCtrl.push(AddServicePage);
+  }
+  chart(){
+    this.navCtrl.push(ProgressReviewPage);
   }
   logForm() {
     console.log(this.todo)

@@ -26,8 +26,9 @@ export class ProfilePage {
   private loading : any;
   private ClintProfileData : any;
   private services : any;  
-  private repos :any;//search
-
+  private repos :any; //search
+  private searchURL : string;
+  private searchKey : string;
   [x: string]: any;
   
   constructor( public http:Http, 
@@ -54,6 +55,7 @@ export class ProfilePage {
             
           });
           this.storage.get('StoredToken').then((token) => {
+            console.log('Clients Stored token is', token);
             this.getLoginUserData(token);            
           });
   }
@@ -72,42 +74,25 @@ export class ProfilePage {
     }, error => {
       console.log(error);
     })
-    this.storage.get('StoredToken').then((val) => {
-      console.log('Stored token is', val);
-    });    
+       
   }
   updateProfile(){
 
   }
   //___________________Search engine part___________
-  searchtestService(key:any){
+  
+  searchService(key:any){
     console.log(key.target.value);
-    console.log(this.language);
-
-    const searchKeyData = {
-      keyWord:key.target.value,
-      lang : this.language
-    };
-    this.searchResultsProvider.searchRepo(searchKeyData).subscribe(res => {
-      //console.log(res);
-      this.repos = res.items;
-      console.log(this.repos);
-    });
-  }
-  searchService($event){
-    var headers = new Headers();
-    //headers.append('Authorization',this.autharization);
+    this.searchKey = key.target.value;
+    this.searchURL = 'http://constructionlkapi.azurewebsites.net/Search/FindByWord?key='+this.searchKey;
+    console.log(this.searchURL);
+    var headers = new Headers();    
     headers.append('Accept', 'application/json');
-    this.http.get('http://constructionlkapi.azurewebsites.net/Search/FindByWord', { headers: headers }).map(res => res.json())
+    this.http.get(this.searchURL, { headers: headers }).map(res => res.json())
     .subscribe(data => {
       this.searchData = data;
       console.log(this.searchData);
-      this.servicesArray = this.searchData.Services;
-      this.services = this.servicesArray[0];
-      //console.log(this.servicesArray);
-      console.log(this.services[1]);
-      
-     // console.log(this.searchData);
+     
     }, error => {
       console.log(error);
     })

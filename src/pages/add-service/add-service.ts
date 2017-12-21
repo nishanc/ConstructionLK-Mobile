@@ -17,6 +17,11 @@ export class AddServicePage {
   private subCat: any;
   private Id : any;
   private ServiceData : any;
+  private locationData :any; 
+  private geometryData :any; 
+  private servicelocation : any;
+  private town : string;
+  private latLangURL : string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,    
@@ -32,27 +37,60 @@ export class AddServicePage {
   logForm() {
     this.ServiceData = this.FrmAddNewService;
     this.ServiceData.UserId = this.Id;
-    this.ServiceData.TypeId = 2;
-    console.log(this.ServiceData);
-    var headers = new Headers();
-    headers.append("Accept", 'application/json');
+    this.ServiceData.TypeId = 2;    
 
-    let options = new RequestOptions({ headers: headers });    
-   
-    let postParams =  this.ServiceData;    
-    this.http.post('http://constructionlkapi.azurewebsites.net/ItemService/AddNewService', postParams, options)
-      .subscribe(data => {
-        alert("Service Added");
-        
-      }, error => {
-        let alert = this.alertCtrl.create({
-          title: 'Sorry',
-          subTitle: error._body,
-          buttons: ['OK']
-        });
-        alert.present();
-        console.log(error);
-      })
+    this.latLangURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+this.ServiceData.location+'&key=AIzaSyDqi5hLC3fY6cJGz60uh30IeKhIGA0czpI';
+    console.log(this.latLangURL);
+    this.http.get( this.latLangURL).map(res => res.json())
+    .subscribe(data => {
+      this.locationData = data;
+      
+      console.log(this.locationData.results[0]);
+      this.geometryData = this.locationData.results[0];
+      console.log(this.geometryData.geometry.location);
+      console.log(this.geometryData.formatted_address);
+      let alert = this.alertCtrl.create({
+        title: 'Get location as..',
+        subTitle: this.geometryData.formatted_address,
+        buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  console.log(this.ServiceData);
+                  this.servicelocation = this.geometryData.geometry.location;
+                  console.log(this.servicelocation);
+                  this.ServiceData.location = this.servicelocation;    
+                  var headers = new Headers();
+                  headers.append("Accept", 'application/json');
+                  let options = new RequestOptions({ headers: headers });       
+                  let postParams =  this.ServiceData;  
+                  console.log(this.ServiceData);
+                  this.http.post('http://constructionlkapi.azurewebsites.net/ItemService/AddNewService', postParams, options)
+                    .subscribe(data => {
+                      console.log("Service Added");        
+                    }, error => {
+                      let alert = this.alertCtrl.create({
+                        title: 'Sorry',
+                        subTitle: error._body,
+                        buttons: ['OK']
+                      });
+                      alert.present();
+                      console.log(error);
+                    });
+                }
+              }             
+            ]
+      });
+     
+      alert.present();
+     
+      
+      
+    }, error => {
+      alert(error);
+    });
+
+    
   }
 
   getSubCatagories() {
@@ -64,7 +102,7 @@ export class AddServicePage {
         this.supCatagory = data;
       }, error => {
         console.log(error);
-      })
+    });
 
   }
   onChange(index: any) {
@@ -72,9 +110,9 @@ export class AddServicePage {
     this.subCatagory = this.subCat.SubCategories;
     console.log(this.subCatagory);
   }
-
+ 
   selectItemCode() {
     console.log('Clicked');
-
   }
+  
 }

@@ -4,50 +4,40 @@
     <ion-title>Customer</ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar (keyup) = "searchtestService($event)"  placeholder="Search a service..."></ion-searchbar>
-    <ion-searchbar (keyup) = "searchService($event)"  placeholder="Search a test service..."></ion-searchbar>
-    <div *ngIf = "repos">
-        <ion-list>
-        <ion-item *ngFor = "let res of repos">
+   
+    <ion-searchbar (keyup)="searchService($event)" placeholder="Search a test service..."></ion-searchbar>
+    
+    <div *ngIf="searchData">
+      <ion-list>
+        <ion-item *ngFor="let item of searchData">
           <ion-avatar item-start>
-            <img src= "{{ res.owner.avatar_url }}">
+            <img src="../assets/img/User.png">
           </ion-avatar>
-          <h2>{{ res.name }}</h2>
-          <p><ion-badge item-right>{{ res.full_name }}</ion-badge></p>
-          <p><ion-badge item-right>{{ res.name }}</ion-badge></p>
-          <ion-badge item-right><button ion-button (click) =  "moreSearchData(res.id)">More</button></ion-badge>
+          <h2>{{ item.Cat }}</h2>
+          <p>
+            <ion-badge item-right>{{ item.Name }}</ion-badge>
+          </p>
+          <p>
+            <ion-badge item-right>Provider : {{ item.Provider }}</ion-badge>
+          </p>
+          <ion-badge item-right>
+            <button ion-button (click)="moreSearchData(item.Id)">More</button>
+          </ion-badge>
         </ion-item>
       </ion-list>
-      </div>
-      <div  *ngIf = "services">
-          <ion-list>
-          <ion-item *ngFor = "let ser of services">
-             <!-- <ion-avatar item-start>
-              <img src= "../assets/img/User.png">
-            </ion-avatar>
-             <h2>{{ service.Name }}</h2>
-            <p><ion-badge item-right>{{ service.Provider }}</ion-badge></p>
-            <p><ion-badge item-right>{{ service.SubCat }}</ion-badge></p> 
-            <ion-badge item-right><button ion-button (click) =  "moreSearchData(res.id)">More</button></ion-badge> -->
-          </ion-item>
-        </ion-list>
-        </div>
+    </div>
   </ion-toolbar>
- 
+
 </ion-header>
 
 
 <ion-content padding class="pageBg">
-    
-    <ion-select name = "language" [(ngModel)]='language'>
-        <ion-option value = "Java">Java</ion-option>
-        <ion-option value = "PHP">PHP</ion-option>
-        <ion-option value = "Ruby">Ruby</ion-option>
-      </ion-select>
-    
+
+ 
+
   <ion-segment [(ngModel)]="ClientMenu" color="primary">
-   
-    <ion-segment-button  value="home">
+
+    <ion-segment-button value="home">
       <ion-icon name="home"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="settings">
@@ -88,86 +78,84 @@
             A/C Servic
           </button>
           <button ion-item (click)="clkPlumber()">
-              <ion-thumbnail item-start>
-                <img src="../assets/img/AWA-10.png">
-              </ion-thumbnail>
-              Plumber
-            </button>
-            <button ion-item (click)="clkWelding()">
-                <ion-thumbnail item-start>
-                  <img src="../assets/img/AWA-15.png">
-                </ion-thumbnail>
-                Welding
-              </button>
-              <button ion-item (click)="clkComputerNetworking()">
-                  <ion-thumbnail item-start>
-                    <img src="../assets/img/AWA-13.png">
-                  </ion-thumbnail>
-                  Computer Networking
-                </button>
-                <button ion-item (click)="clkPainter()">
-                    <ion-thumbnail item-start>
-                      <img src="../assets/img/AWA-18.png">
-                    </ion-thumbnail>
-                    Painter
-                  </button>
-                  
-                    <button ion-item (click)="clkLandscaping()">
-                        <ion-thumbnail item-start>
-                          <img src="../assets/img/AWA-09.png">
-                        </ion-thumbnail>
-                        Landscaping
-                      </button>
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-10.png">
+            </ion-thumbnail>
+            Plumber
+          </button>
+          <button ion-item (click)="clkWelding()">
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-15.png">
+            </ion-thumbnail>
+            Welding
+          </button>
+          <button ion-item (click)="clkComputerNetworking()">
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-13.png">
+            </ion-thumbnail>
+            Computer Networking
+          </button>
+          <button ion-item (click)="clkPainter()">
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-18.png">
+            </ion-thumbnail>
+            Painter
+          </button>
+
+          <button ion-item (click)="clkLandscaping()">
+            <ion-thumbnail item-start>
+              <img src="../assets/img/AWA-09.png">
+            </ion-thumbnail>
+            Landscaping
+          </button>
         </ion-list>
       </ion-card>
     </ion-list>
 
     <!--_________________Settings tab_____________-->
     <ion-list *ngSwitchCase="'settings'">
-       
-        <ion-card>
-            <ion-card-title>
-                Change Account settings
-              </ion-card-title>
-          <ion-card-content>
-            <form novalidate [formGroup]="FrmUpdateProfile" (ngSubmit)="updateProfile(FrmUpdateProfile)">
-      
-              <ion-list >
-      
-                <ion-item>
-                  <ion-label floating>First Name</ion-label>
-                  <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'>{{userData.FirstName}}</ion-input>
-                </ion-item>
-               
-      
-                <ion-item>
-                  <ion-label floating>Last Name</ion-label>
-                  <ion-input formControlName="LastName" type="text" value='{{userData.LastName}}'></ion-input>
-                </ion-item>
-                <ion-item >
-                    <ion-label floating>Mobile Number</ion-label>
-                    <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="number"></ion-input>
-                  </ion-item>
-                <ion-item>
-                  <ion-label floating>Current Address</ion-label>
-                  <ion-input formControlName="Address" value='{{userData.Address}}' type="text"></ion-input>
-                </ion-item>
-                
-      
-                <ion-item>
-                  <ion-label floating>Date of Birth</ion-label>
-                  <ion-input formControlName="DateOfBirth" type="text" value='{{userData.DateOfBirth}}' placeholder="dd/mm/yyyy"></ion-input>
-                </ion-item>
-      
-                <ion-item>
-                  <button ion-button color="secondary" (click)="updateProfile()" block type="submit" >Save</button>
-                </ion-item>
-              </ion-list>
-      
-            </form>
-          </ion-card-content>
-        </ion-card>
-        
+
+      <ion-card>
+        <ion-card-title>
+          Change Account settings
+        </ion-card-title>
+        <ion-card-content>
+          <form novalidate [formGroup]="FrmUpdateProfile" (ngSubmit)="updateProfile(FrmUpdateProfile)">
+
+            <ion-list>
+
+              <ion-item>
+                <ion-label floating>First Name</ion-label>
+                <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'>{{userData.FirstName}}</ion-input>
+              </ion-item>
+
+
+              <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-input formControlName="LastName" type="text" value='{{userData.LastName}}'></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Mobile Number</ion-label>
+                <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="number"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Current Address</ion-label>
+                <ion-input formControlName="Address" value='{{userData.Address}}' type="text"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Date of Birth</ion-label>
+                <ion-input formControlName="DateOfBirth" type="text" value='{{userData.DateOfBirth}}' placeholder="dd/mm/yyyy"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <button ion-button color="secondary" (click)="updateProfile()" block type="submit">Save</button>
+              </ion-item>
+            </ion-list>
+
+          </form>
+        </ion-card-content>
+      </ion-card>
+
     </ion-list>
   </div>
 </ion-content>

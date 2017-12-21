@@ -1,6 +1,6 @@
 page-search-result {
     .pageBg{
-        background-color: #E9A719;
+        background-color: #002B36;
         align-content: center;
         display: flex;
         flex-direction: column;
@@ -8,4 +8,10 @@ page-search-result {
         text-align: center;
         font-size: 10pt;
      }
+     img{
+         margin: auto;
+         margin-top:20px; 
+         height: 100px;
+         width: 100px;
+    }
 }

@@ -45,8 +45,8 @@ page-constructor-profile {
             font-size: 16px;
             }
     img{
-        height:200px;
-        width:200px;
+        height:150px;
+        width:150px;
         border-radius: 50%;
     }
     .list{
@@ -63,56 +63,25 @@ page-constructor-profile {
     }
     .profDiv{
       box-shadow: 2px;
-      background: rgba(160, 134, 134, 0.6);
+      background: rgba(97, 51, 51, 0.8);
       border-radius: 10px;
       margin: 10px;
       padding: 20px;
+     
     }
     styleStatus{
       border-radius: 10px;
     }
    
-    #sidebar {
-      background-color: #ffffff;
-    }
     
-    #content-wrap {
-      background-color: #c95454;
-    }
-    
-    #main-wrap > div {
-      min-height: 45px;
-      
-    }
-    #main-wrap > div { min-height: 45px; }
-   
-    #main-wrap {
-        /* overflow to handle inner floating block */
-        overflow: hidden;
-        vertical-align:middle;
-        
-    }
-    
-    #sidebar {
-        float: left;
-        width: 50%;
-        padding-top: 10x;
-        color:rgb(8, 7, 7);
-        font-size:10pt;
-        vertical-align:middle;
-    }
-    
-    #content-wrap {
-        float: left;
-        width: 50%;
-        
-    }  
-    p{
-      
+    p{      
       height: 45px;
-      padding-top: 5px;
+      margin: 0;
     }
-    
+    .ico{
+      font-size: 25px;
+      color: rgb(17, 212, 105);
+    }
     
     
   }

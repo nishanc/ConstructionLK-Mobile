@@ -32,23 +32,22 @@
     <ion-list *ngSwitchCase="'profile'">
       <div class="profDiv" *ngIf="userData">
         <img class="Style_img" src="../assets/img/profile.jpg">
-        <p style="color:rgb(149, 230, 56); font-size:17pt">{{userData.Username}}</p>
-        <p style="color:rgb(245, 245, 245); font-size:20pt">{{userData.FirstName}} {{userData.LastName}}</p>
-        <p style="color:rgb(120, 143, 92); font-size:17pt">{{userData.CompanyName}}</p>
-        <p style="color:rgb(120, 143, 92); font-size:17pt">{{userData.CompanyRegNo}}</p>
-        <p style="color:rgb(52, 216, 120); font-size:18pt">{{userData.Address}}</p>
-        <p style="color:rgb(232, 232, 241); font-size:18pt">{{userData.Telephone}}</p>
-        <p style="color:rgb(52, 216, 120); font-size:18pt">{{userData.Bio}}</p>
-        <div id="main-wrap">
-          <div id="sidebar" style="color:rgb(8, 7, 7); font-size:10pt;">
-            <h4>Freelancer</h4>
-          </div>
-          <div id="content-wrap">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-          </div>
-        </div>
+        
+        <h3 style="color:rgb(245, 245, 245);">{{userData.FirstName}} {{userData.LastName}}</h3>
+        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="mail"></ion-icon>  {{userData.Username}}</p>
+        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="pin"></ion-icon>  {{userData.MailingAddress}}</p>
+        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="phone-portrait"></ion-icon>  {{userData.Telephone}}</p>
+        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="bulb"></ion-icon>  {{userData.Bio}}</p>
+        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="tablet-landscape"></ion-icon>  {{userData.CompanyName}}</p>
+        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="ribbon"></ion-icon>  {{userData.CompanyRegNo}}</p>
 
+        <ion-grid>
+            <ion-row>
+              <ion-col style="background-color:rgb(241, 234, 237);  font-size:12pt" >Freelancer</ion-col>
+              <ion-col style="background-color:rgb(0, 0, 0); font-size:12pt"><ion-icon  name="star"></ion-icon><ion-icon  name="star"></ion-icon><ion-icon  name="star"></ion-icon><ion-icon  name="star"></ion-icon></ion-col>
+            </ion-row>
+           
+          </ion-grid>
       </div>
     </ion-list>
 
@@ -57,19 +56,23 @@
     <!--_________________Home tab_____________-->
     <ion-list *ngSwitchCase="'home'">
       <ion-item>
-          <div *ngIf = "repos">
+          <p>New requests</p>
+          <div *ngIf = "requests">
               <ion-list>
-              <ion-item *ngFor = "let res of repos">
+              <ion-item *ngFor = "let req of requests">
                 <ion-avatar item-start>
-                  <img src= "{{ res.owner.avatar_url }}">
+                  <img src= "../assets/img/User.png">
                 </ion-avatar>
-                <h2>{{ res.name }}</h2>
-                <p><ion-badge item-right>{{ res.full_name }}</ion-badge></p>
-                <p><ion-badge item-right>{{ res.name }}</ion-badge></p>
-                <ion-badge item-right><button ion-button (click) =  "moreSearchData(res.id)">More</button></ion-badge>
+                <h2>{{ req.CusName }}</h2>
+                <p><ion-badge item-right>{{ req.Time }}</ion-badge></p>                
+                <ion-badge item-right>
+                  <button ion-button (click) =  "moreSearchData(req.Id)">Details>></button></ion-badge>
               </ion-item>
             </ion-list>
-            </div>
+          </div>
+      </ion-item>
+      <ion-item>
+          <p>Accepted requests</p>
       </ion-item>
     </ion-list>
 

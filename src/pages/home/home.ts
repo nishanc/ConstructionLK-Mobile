@@ -6,6 +6,7 @@ import { ProfilePage } from '../client-profile/client-profile'
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { ConstructorProfilePage } from '../constructor-profile/constructor-profile';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 
 
@@ -35,8 +36,7 @@ export class HomePage implements OnInit {
     this.slideMenu.swipeEnable(true);
   }
   postLogin() {
-    //let loading = this.loadingController.create({content : "Logging in ,please wait..."});
-    let loading = this.loadingController.create({content : "Logging in ,please wait..."});
+    let loading = this.loadingController.create({content : "Logging in, please wait..."});
     loading.present();
     this.UserDetails = this.FrmLogin.value;
     this.parameters = 'username=' + this.UserDetails.Username + '&password=' + this.UserDetails.Password + '&grant_type=password';
@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
     this.http.post('http://constructionlkapi.azurewebsites.net/token', postParams, options).map(res => res.json())
       .subscribe(token => {
         this.Token = token.access_token;
-        //console.log(this.Token);
+        console.log(this.Token);
         this.storage.set('StoredToken', this.Token);
         this.getUserRole(this.Token);
         //this.getLoginUserData(this.Token);
@@ -91,12 +91,12 @@ export class HomePage implements OnInit {
       });
       alert.present();
     })
-    this.storage.get('StoredToken').then((val) => {
-      console.log('Stored token is', val);
-    });
+    
     
   }
-
+  forgotPassword(){
+    this.navCtrl.push(ForgotPasswordPage);
+  }
   
   signup() {
     this.navCtrl.push(SignUpPage);

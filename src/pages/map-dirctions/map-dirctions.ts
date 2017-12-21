@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 
 /**
  * Generated class for the MapDirctionsPage page.
@@ -20,21 +22,33 @@ export class MapDirctionsPage {
   map: any;
   start :any;
   end :any;
-  lng : any;
-  lat: any;
+  lng : number;
+  lat: number;
+  myLocation:any;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.lng = this.navParams.get('lng');
-    this.lat = this.navParams.get('lat');
-    alert(this.lat);
-    alert(this.lng);
-    this.start = new google.maps.LatLng(this.lat ,this.lng );
-    this.end = new google.maps.LatLng(7.143504, 80.010341);
+  constructor(public navCtrl: NavController,
+       public navParams: NavParams,
+       private geolocation: Geolocation) {
+   
+        
+    this.start = new google.maps.LatLng(this.lat, this.lng);
+    this.end = new google.maps.LatLng(6.831542, 79.874404);
     this.getRoute();
   }
-
+  getMyLocation(){
+    let watch = this.geolocation.watchPosition();
+        watch.subscribe((data) => {
+          
+          this.lng = data.coords.latitude;
+          this.lat = data.coords.longitude;
+          this.myLocation = new LatLng(this.lat, this.lng);
+          return this.myLocation;
+        
+         
+    });
+  }
   ionViewDidLoad(){
     this.initMap();
   }
