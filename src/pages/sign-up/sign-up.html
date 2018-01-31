@@ -25,7 +25,7 @@
           </ion-item>
 
           <ion-item *ngIf="FrmSignup.get('Username').hasError('required')|| FrmSignup.get('Username').hasError('pattern') && FrmSignup.get('Username').touched">
-            <p class="error" *ngIf="FrmSignup.get('Username').hasError('required') && FrmSignup.get('Username').touched">Sorry, field Password is required!</p>
+            <p class="error" *ngIf="FrmSignup.get('Username').hasError('required') && FrmSignup.get('Username').touched">Sorry, field Email is required!</p>
             <p class="error" *ngIf="FrmSignup.get('Username').hasError('pattern') && FrmSignup.get('Username').touched">Sorry, Insert valid email!</p>
 
           </ion-item>
@@ -49,7 +49,7 @@
           <ion-item *ngIf="(FrmSignup.get('ConfirmPassword').hasError('equalTo')||FrmSignup.get('ConfirmPassword').hasError('required'))&& FrmSignup.get('ConfirmPassword').touched">
             <p class="error" *ngIf="FrmSignup.get('ConfirmPassword').hasError('required') && FrmSignup.get('ConfirmPassword').touched">Confirm password is required </p>
             <p class="error" *ngIf="FrmSignup.get('ConfirmPassword').hasError('equalTo') && FrmSignup.get('ConfirmPassword').touched">Password Mismatch </p>
-            <p>Insert a valid email</p>
+            
           </ion-item>
           
           <ion-item >
@@ -91,8 +91,8 @@
           </ion-item>
 
           <ion-item>
-            <ion-label floating>Date of Birth</ion-label>
-            <ion-input formControlName="DOB" type="text" placeholder="dd/mm/yyyy"></ion-input>
+            <ion-label stacked>Date of Birth</ion-label>
+            <ion-input formControlName="DOB" type="text" placeholder="mm/dd/yyyy"></ion-input>
           </ion-item>
 
           <ion-item *ngIf="FrmSignup.get('DOB').hasError('required') && FrmSignup.get('DOB').touched">
@@ -100,17 +100,17 @@
           </ion-item>
 
           <ion-list radio-group formControlName="Gender">
-            <ion-card>
+           
               <ion-item>
                 <ion-label>Male</ion-label>
-                <ion-radio checked="true" value="male"></ion-radio>
+                <ion-radio checked="true" value="Male"></ion-radio>
               </ion-item>
 
               <ion-item>
                 <ion-label>Female</ion-label>
-                <ion-radio value="female"></ion-radio>
+                <ion-radio value="Female"></ion-radio>
               </ion-item>
-            </ion-card>
+           
           </ion-list>
           
           <ion-item>

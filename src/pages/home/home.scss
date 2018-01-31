@@ -8,6 +8,9 @@ page-home {
       background-repeat: repeat-x;
       animation: animatedBackground 20s linear infinite;
     }
+    .error{
+      color: red;
+    }
     
     .pageBg{
         background-color: #002B36;
@@ -45,22 +48,33 @@ page-home {
     }
     .btn{
       margin-top: 10px;     
-      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-      color: #FFFFFF;
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);      
       border-radius: 3px;
       font-size: 11pt;
       &.activated {
-        background-color: rgb(0, 45, 170);
-      }
-     
+        background-color: rgb(200, 202, 59);
+      }     
+    }
+    .btnSignup{
+        background-color: rgb(221, 177, 16);
+        margin-top: 10px;     
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);      
+        border-radius: 3px;
+        font-size: 10pt;
+        &.activated {
+          background-color: rgb(113, 116, 126);
+        }     
     }
     ion-card.card{
       box-shadow: 2px;
       background:#665d4f;
-      border-radius: 5px;
+      border-radius: 7px;
+      width: 82%;
       font-size: 15pt;  
-      padding: 20px;
-      margin-bottom: 40px !important;
+      padding: 15px;
+      margin-left: 9%;
+      margin-top: 20px;
+      margin-bottom: 20px !important;
     }
     
     .item{
@@ -106,10 +120,13 @@ page-home {
       font-size: 15pt;
     }
     a.a{
-      color: rgb(216, 218, 217);
-      font-size: 12pt;
+      color: rgb(223, 231, 227);
+      font-size: 13tpt;
+      //margin-bottom: 20px;
+      margin-top: 50px;
+    }
+    .fb{
       margin-bottom: 20px;
-      margin-top: 20px;
     }
   }
   

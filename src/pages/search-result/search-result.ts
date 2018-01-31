@@ -3,15 +3,8 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProvidersearchResultsProvider } from '../../providers/providersearch-results/providersearch-results';
 import { Http, Headers } from '@angular/http';
 import { TestPage } from '../test/test';
-
-
-
-/**
- * Generated class for the SearchResultPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PaymentsPage } from '../payments/payments';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -19,6 +12,8 @@ import { TestPage } from '../test/test';
   templateUrl: 'search-result.html',
 })
 export class SearchResultPage  {
+  properties: any;
+  Provider: any;
   
   private searchURL: string;
   private searchId: string;
@@ -27,28 +22,33 @@ export class SearchResultPage  {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public searchResultsProvider: ProvidersearchResultsProvider,
-    public http: Http,    
+    public http: Http,
+    public storage: Storage,    
     private platform: Platform) {
+      this.searchId = this.navParams.get('id'); 
   }
 
   ionViewDidLoad() {
-    // console.log(this.navParams.get('id'));
-    this.searchId = this.navParams.get('id');
     var headers = new Headers();
     this.searchURL = 'http://constructionlkapi.azurewebsites.net/ItemService/GetServiceDetail?Id=' + this.searchId;
     headers.append('Accept', 'application/json');
     this.http.get(this.searchURL, { headers: headers }).map(res => res.json())
       .subscribe(data => {
+        
         this.moreData = data;
+        this.Provider = this.moreData.Provider;
+        this.properties = this.moreData.properties;
         console.log(this.moreData);
 
       }, error => {
         console.log(error);
       })
   }
-  pickLocation(){
-    let id = this.searchId;
-    this.navCtrl.push(TestPage,{id:id});
+  goToPayment(){
+    
+    this.storage.set('serviceId', this.searchId);
+    // let id=this.searchId;
+     this.navCtrl.push(PaymentsPage);
   }
 }
 

@@ -1,0 +1,91 @@
+page-progress-update {
+    .pageBg{
+        background-color: #002B36;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 10pt;
+    }
+     h5,h4{
+         color: rgb(0, 0, 0);
+     }
+     h3{
+        color: rgb(241, 241, 241);
+    }
+    .ico{
+        color:rgb(221, 177, 16); 
+        font-size: 18pt;
+    }
+    ion-grid {
+        height: 100%;
+        
+        ion-row {
+          height:40px;
+        }
+        
+    }
+    .profDiv{
+        box-shadow: 2px;
+        background: rgba(165, 78, 76, 0.8);
+        border-radius: 10px;
+        margin: 2%;
+        padding: 5px;
+        padding-bottom: 20px;
+        width: 96%;
+       
+    }
+    .btnUpdate{
+        height:40px;
+        width:60%;
+        margin-left: 20%;
+
+    }
+    .user{
+        color:rgb(255, 255, 255);
+        font-size: 17pt;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    h1{
+        color:rgb(245, 245, 245);
+    }
+    
+     .can{
+         height: 100%;
+         width:100%;
+         font-size: 16pt;
+         margin-bottom: 20px;
+     }
+    .text{
+       background-color: rgb(255, 255, 255);
+       padding-top: 20px;
+       padding-bottom: 10px;
+       padding-left: 10%;
+       padding-right: 10%;
+       
+       margin: 2%;
+       border-radius: 10px;
+       width: 96%;
+    }
+    p{
+       justify-content: space-around;
+       font-size: 13pt;
+       color: rgb(12, 12, 12);
+    }
+    .label{
+       font-weight: bold;
+       font-size: 14pt;
+       color: black;
+    }
+   .button{
+        width:60%;
+        height: 30px;
+        margin-left:20%;
+        font-size: 11pt;
+    }
+    .text-input{
+        font-size: 14pt;
+        
+    }
+}

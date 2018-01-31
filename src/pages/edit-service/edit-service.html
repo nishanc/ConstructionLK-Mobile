@@ -1,0 +1,59 @@
+<!--
+  Generated template for the AddServicePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    
+      <ion-navbar color="secondary">
+        <ion-title>Edit Service</ion-title>
+      </ion-navbar>
+    
+    </ion-header>
+    
+    
+    <ion-content padding  class="pageBg">
+        <div class="hint">
+            <h2>Hint</h2>
+            <p>You can edit your existing service.</p>
+          </div>
+      <div>
+        <form (ngSubmit)="logForm()">
+          <ion-list>
+            <ion-item>
+              <ion-label color="primary" stacked>Item Name</ion-label>
+              <ion-input  type="text" placeholder="Eg:Bawa Plumbing" [(ngModel)]="FrmAddNewService.ItemName" name="ItemName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary" stacked>Item Code</ion-label>
+              <ion-input type="text" placeholder="Code for your reference" [(ngModel)]="FrmAddNewService.ItemCode" name="ItemCode"></ion-input>
+            </ion-item>
+            <ion-item> 
+              <ion-label color="primary" stacked>Main catagory ID</ion-label>
+              <ion-select multiple="false" (ionChange)="onChange(FrmAddNewService.txtsupCatagory)" [(ngModel)]="FrmAddNewService.txtsupCatagory" name="txtsupCatagory" *ngIf = "supCatagory">
+                  <ion-option *ngFor = "let sup of supCatagory" value='{{sup.SupId}}'> {{sup.SupName}}</ion-option>           
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf = "FrmAddNewService.txtsupCatagory">
+              <ion-label  color="primary" stacked>Subcatagory ID</ion-label>
+              <ion-select  multiple="false"  *ngIf = "subCatagory"  [(ngModel)]="FrmAddNewService.SubCategoryId" name="SubCategoryId" >
+                  <ion-option *ngFor = "let sub of subCatagory" value='{{sub.SubId}}'> {{sub.SubName}}</ion-option>           
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary" stacked >Description</ion-label>
+              <ion-textarea placeholder="Enter a description"  [(ngModel)]="FrmAddNewService.Description" name="Description" ></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary" stacked>Location</ion-label>
+              <ion-input type="text" placeholder="Available City" [(ngModel)]="FrmAddNewService.location" name="location"></ion-input>
+              
+            </ion-item>
+              <button ion-button height="45px" color="secondary"  block type="submit">Save</button>
+          </ion-list>
+        </form>
+        
+      </div>
+      
+    </ion-content>

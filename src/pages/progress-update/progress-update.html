@@ -1,0 +1,106 @@
+<!--
+  Generated template for the ProgressUpdatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="secondary">
+    <ion-title>Update Progress </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="pageBg" padding>
+
+
+  <div *ngIf="requestData" class="profDiv">
+    <ion-list>
+      <!-- <img class="Style_img" src="./assets/img/User.png"> -->
+      <p class="user"> Customer : {{requestData.User}}</p>
+
+      <h3>{{requestData.Rating}}
+        <ion-icon class="ico" name="star"></ion-icon>
+      </h3>
+      <p id="demo"></p>
+      <ion-item style="background: rgba(139, 70, 67, 0.8); margin:0px; padding:0px;">
+        <ion-grid>
+
+          <ion-row>
+            <ion-col col-9 push-1>
+              <p float-left style="color:rgb(197, 190, 183); font-size:12pt">
+                On {{dateTime.date}} at {{dateTime.time}}
+              </p>
+            </ion-col>
+            <ion-col col-1 pull-9>
+              <p style="color:rgb(221, 177, 16); padding-right:10px; font-size:15pt">
+                <ion-icon class="ico" name="clock"></ion-icon>
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 push-1>
+              <p style="color:rgb(197, 190, 183); font-size:12pt">
+                Service : {{requestData.job}}
+              </p>
+            </ion-col>
+            <ion-col col-1 pull-9>
+              <p style="color:rgb(221, 177, 16); font-size:15pt">
+                <ion-icon class="ico" name="hammer"></ion-icon>
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 push-1>
+              <p style="color:rgb(197, 190, 183); font-size:12pt">
+                Address : {{requestData.address}}
+              </p>
+            </ion-col>
+            <ion-col col-1 pull-9>
+              <p style="color:rgb(221, 177, 16); font-size:15pt">
+                <ion-icon class="ico" name="mail-open"></ion-icon>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <button icon-start ion-button color="secondary" block (click)="getRoute()">
+        <ion-icon name="send"></ion-icon>Show Route</button>
+      <button icon-start ion-button color="secondary" block (click)="rateCustomer()">
+        <ion-icon name="ios-star-half"></ion-icon>Rate Customer</button>
+    </ion-list>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="safe" (click)="callCustomer()">
+      <ion-icon name="call"></ion-icon>
+    </button>
+  </ion-fab>
+
+
+  <div class="text">
+    <h5>Progress for this project</h5>
+    <canvas class="can" #pieChart></canvas>
+
+    <ion-list>
+
+      <h5>Update progress of this project</h5>
+
+      <ion-item width="300px">
+        <ion-label floating>Completed percentage(%)</ion-label>
+        <ion-input type="number" [(ngModel)]="Frmprogress.value" name="value"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Comment</ion-label>
+        <ion-textarea [(ngModel)]="Frmprogress.comment" name="comment"></ion-textarea>
+      </ion-item>
+     
+      <button [disabled]="!Frmprogress.value" class="btnUpdate" ion-button color="secondary" (click)="updateProgress()" block>Update</button>
+      
+    </ion-list>
+  </div>
+
+
+</ion-content>

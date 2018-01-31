@@ -1,0 +1,95 @@
+page-pick-location {
+    .stCard{
+        border-radius: 10p;
+        margin-top:420px;
+        position: relative!important;        
+    }
+    
+    .pageBg{
+        background-color: #002B36;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 10pt;
+     }
+     ion-textarea{
+         margin: 20px;
+         font-size: 14pt;
+         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+     }
+     .button{
+         margin: 10%;
+         width: 80%;
+         height:50px;
+     }
+    #map {
+        height: 300px;
+        width: 96%;
+        margin-left:2%;
+        //margin-top: 50px;
+        position: relative!important;
+        overflow: hidden!important;
+        border-radius: 10px;
+    }
+    .currentitem {
+        position: fixed;
+        opacity: .8;
+        top: 12rem;
+        left: 0;
+        z-index: 103;
+        width: 100%;
+        height: 50px;
+        .item-ios .item-inner {
+            background: none;
+            padding-right: 10px;
+        }
+    }
+    .hidemap {
+        visibility: hidden;
+        margin-top: -1000px;
+    }
+    .hint{
+        position: relative;
+        justify-content: space-around;
+        background-color: rgb(209, 204, 198);
+        padding: 10px;
+        width: 96%;
+        margin-left:2%;
+        margin-top: 2%;
+        border-radius: 10px;
+       
+    }
+    .button{
+        margin: 5%;
+        width:90%;
+        height: 45px;
+        font-size: 13pt;
+    }
+    ion-searchbar {
+        position: relative;
+        //opacity: .7;
+        z-index: 3;
+    }
+    .switch {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        width: 80%;
+        border-radius: 10px;
+        text-align: center;
+        z-index: 100;
+        opacity: .9;
+        .active {
+            background: #3366CC!important;
+            color: #fff;
+        }
+        .button {
+            width: 100px;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

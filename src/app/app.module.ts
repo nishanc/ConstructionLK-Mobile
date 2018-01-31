@@ -27,6 +27,13 @@ import { MapDirctionsPage } from '../pages/map-dirctions/map-dirctions';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { ProgressReviewPage } from '../pages/progress-review/progress-review';
 import { TestPage } from '../pages/test/test';
+import { RequestDetailsPage } from '../pages/request-details/request-details';
+import { ServiceDetailsPage } from '../pages/service-details/service-details';
+import {ChartsModule} from 'ng2-charts'
+import { CallNumber } from '@ionic-native/call-number';
+import { ProgressUpdatePage } from '../pages/progress-update/progress-update';
+import { PickLocationPage } from '../pages/pick-location/pick-location';
+import { EditServicePage } from '../pages/edit-service/edit-service';
 
 @NgModule({
   declarations: [
@@ -41,15 +48,22 @@ import { TestPage } from '../pages/test/test';
     MapDirctionsPage,
     ForgotPasswordPage,
     ProgressReviewPage,
+    RequestDetailsPage,
+    ServiceDetailsPage,
     TestPage,
     ConstructorProfilePage,
-    Test2Page
+    Test2Page,
+    ProgressUpdatePage,
+    PickLocationPage,
+    EditServicePage
+   
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpModule,
+    ChartsModule
    // PaymentsPageModule
     
   ],
@@ -62,13 +76,19 @@ import { TestPage } from '../pages/test/test';
     SignUpPage,    
     AboutPage,
     PaymentsPage,
+    ServiceDetailsPage,
     AddServicePage,
     MapDirctionsPage,
+    RequestDetailsPage,
     ForgotPasswordPage,
     ProgressReviewPage,
     TestPage,
     ConstructorProfilePage,
-    Test2Page
+    Test2Page,
+    ProgressUpdatePage,
+    PickLocationPage,
+    EditServicePage
+ 
   ],
   providers: [
     GoogleMaps,
@@ -76,6 +96,7 @@ import { TestPage } from '../pages/test/test';
     StatusBar,
     SplashScreen,
     Camera,
+    CallNumber,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},   
     ProvidersearchResultsProvider,

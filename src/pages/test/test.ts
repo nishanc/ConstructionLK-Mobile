@@ -9,6 +9,7 @@ import { identifierModuleUrl } from '@angular/compiler/compiler';
 import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { ActionSheetController, AlertController, App,  Platform, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ProfilePage } from '../client-profile/client-profile';
 
 declare var google: any;
 declare var MarkerClusterer: any;
@@ -18,12 +19,14 @@ declare var MarkerClusterer: any;
   templateUrl: 'test.html',
 })
 export class TestPage {
+  itemId: any;
+  paymentData: any;
+  message: any;
 @ViewChild('map') mapElement: ElementRef;
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   addressElement: HTMLInputElement = null;
-
+  todo = {};
   listSearch: string = '';
-
   map: any;
   marker: any;
   loading: any;
@@ -35,9 +38,10 @@ export class TestPage {
   currentregional: any;
   public lat :number;
   public lng:number;
-  private autharization : any;
-  private token : any;
+  private autharization : string;
+  private token : string;
   constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
@@ -51,42 +55,45 @@ export class TestPage {
     public actionSheetCtrl: ActionSheetController,
     public geolocation: Geolocation
   ) {
-    this.platform.ready().then(() => this.loadMaps());
-    this.regionals = [{
-      "title": "Marker 1",
-      "latitude": 52.50094,
-      "longitude": 13.29922,
-    }, {
-      "title": "Marker 3",
-      "latitude": 52.50010,
-      "longitude": 13.29922,
-    }, {
-      "title": "Marker 2",
-      "latitude": 49.1028606,
-      "longitude": 9.8426116
-    }];
+    this.platform.ready().then(() => this.loadMaps());   
+    this.storage.get('StoredToken').then((localToken) => {
+      this.token = localToken; 
+      console.log('Clients Stored token is '+ this.token);               
+    });
+    this.storage.get('serviceId').then((serviceId) => {
+      this.itemId = serviceId; 
+                    
+    });
+    
   }
-  pushToPayments(){
+  sendRequest(){
+    let loading = this.loadingCtrl.create({content : "Sending Request..."});
+    loading.present();
+   this.message = this.todo; 
+    console.log(this.message.description);
     let requestData={
       Location :{Lat : this.lat, Lon : this.lng},
-      ItemId : this.navParams.get('id'),
-      Message : "Please accept"
+      ItemId :this.itemId ,
+      Message : this.message.description,
+      paytoken :this.navParams.get('token')
     }
-    console.log(requestData);
-    this.storage.get('StoredToken').then((token) => {
-      this.token = token;
-                
-    });
-    this.autharization = 'Bearer '+this.token; 
+    //alert(requestData.paytoken);
+    
+    
+    this.autharization = 'Bearer '+ this.token; 
+    console.log(this.autharization);     
     var headers = new Headers();
     headers.append('Authorization',this.autharization);
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });       
     
     this.http.post('http://constructionlkapi.azurewebsites.net/Request/NewRequest', requestData, options)
-      .subscribe(data => {
-        console.log("Success");        
+      .subscribe(data => {         
+        this.showToast("Request sent Success!") ;
+        this.navCtrl.push(ProfilePage);  
+        loading.dismissAll(); 
       }, error => {
+        loading.dismissAll();
         let alert = this.alertCtrl.create({
           title: 'Sorry',
           subTitle: error._body,
@@ -128,8 +135,7 @@ export class TestPage {
   }
 
   mapsSearchBar(ev: any) {
-    // set input to the value of the searchbar
-    //this.search = ev.target.value;
+    
     console.log(ev);
     const autocomplete = new google.maps.places.Autocomplete(ev);
     autocomplete.bindTo('bounds', this.map);
@@ -192,9 +198,9 @@ export class TestPage {
       var mapEle = this.mapElement.nativeElement;
       this.map = new google.maps.Map(mapEle, {
         zoom: 10,
-        center: { lat: 51.165691, lng: 10.451526 },
+        center: { lat: 6.927079, lng:79.861244 },
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
+       // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
         disableDoubleClickZoom: false,
         disableDefaultUI: true,
         zoomControl: true,
@@ -341,7 +347,7 @@ export class TestPage {
             zoom: 14
           };
           this.map.setOptions(options);
-          this.addMarker(this.myPos, "Mein Standort!");
+          this.addMarker(this.myPos, "");
 
           let alert = this.alertCtrl.create({
             title: 'Location',
@@ -389,7 +395,8 @@ export class TestPage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: position
+      position: position,
+      icon: "./assets/img/pin.png"
     });
 
     this.addInfoWindow(marker, content);

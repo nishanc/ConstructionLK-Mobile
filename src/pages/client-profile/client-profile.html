@@ -2,59 +2,72 @@
 
   <ion-navbar hideBackButton color="secondary">
     <ion-title>Customer</ion-title>
+    <ion-buttons end *ngIf="userData">
+      <button ion-button icon-only (click)='btnPosition()'>
+        <ion-icon style="color: rgb(255, 255, 255);" name="locate"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-   
-    <ion-searchbar (keyup)="searchService($event)" placeholder="Search a test service..."></ion-searchbar>
-    
-    <div *ngIf="searchData">
-      <ion-list>
-        <ion-item *ngFor="let item of searchData">
+
+    <ion-searchbar (keyup)="searchService($event)" [animated]="true" [showCancelButton]="true" (ionCancel)="hideSearch()" placeholder="Search"></ion-searchbar>
+    <ion-scroll  [class.Data]="searchData"  [class.noData]="Nodata" scrollY="true">
+      <ion-list scrollY="true">
+        <ion-item class="lstSearch" *ngFor="let item of searchData" (click)="moreSearchData(item.Id)">
           <ion-avatar item-start>
-            <img src="../assets/img/User.png">
+            <img src="./assets/img/User.png">
           </ion-avatar>
-          <h2>{{ item.Cat }}</h2>
+          <h2>{{ item.Name }}</h2>
+          <h3>{{ item.Cat }}</h3>
+
           <p>
-            <ion-badge item-right>{{ item.Name }}</ion-badge>
+            <ion-badge width="600px" item-right>Provider : {{ item.Provider }}</ion-badge>
           </p>
-          <p>
-            <ion-badge item-right>Provider : {{ item.Provider }}</ion-badge>
-          </p>
-          <ion-badge item-right>
-            <button ion-button (click)="moreSearchData(item.Id)">More</button>
-          </ion-badge>
+
         </ion-item>
       </ion-list>
-    </div>
+    </ion-scroll>
   </ion-toolbar>
 
 </ion-header>
-
-
 <ion-content padding class="pageBg">
-
- 
-
   <ion-segment [(ngModel)]="ClientMenu" color="primary">
-
     <ion-segment-button value="home">
       <ion-icon name="home"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button (click)="getOngoingServices()" value="services">
+      <ion-icon name="timer"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="settings">
       <ion-icon name="settings"></ion-icon>
     </ion-segment-button>
+
   </ion-segment>
   <div [ngSwitch]="ClientMenu">
-    <!--_________________Profile tab_____________
-    <ion-list *ngSwitchCase="'profile'">
-      <ion-img class="Style_img" src="../assets/img/profile.jpg"></ion-img>
-      <ion-list>
-        <ion-item text-wrap *ngFor="let item of ClintProfileData">
-          <p>{{item.data.FirstName}}</p>
-        </ion-item>
-      </ion-list>
+
+    <!-- _________________services tab_____________ -->
+    <ion-list *ngSwitchCase="'services'">
+      <ion-item>
+        
+        <div *ngIf="ongoingServices">
+          <ion-list>
+            <ion-item *ngFor="let req of ongoingServices" (click)="moreOngoingServiceData(req)">
+              <ion-avatar item-start>
+                <img src="./assets/img/service.png">
+              </ion-avatar>
+              <h2>{{ req.job }}</h2>
+              <p>
+                  <ion-badge  style="background-color:rgb(10, 10, 10); width:79px" item-left>{{ req.Date }}</ion-badge>
+                  <ion-badge style="background-color:rgb(204, 201, 13); width:50%" item-right>Ongoing</ion-badge>
+              </p>
+            
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-item>
     </ion-list>
-    _________________Home tab_____________-->
+
+    <!-- _________________Home tab_____________ -->
 
     <ion-list *ngSwitchCase="'home'">
 
@@ -64,47 +77,48 @@
         </ion-card-title>
 
         <ion-list>
-          <button ion-item (click)="clkElectrician()">
+          <button ion-item (click)="searchButtonService('Plumbing')">
             <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-12.png">
+              <img src="./assets/img/AWA-10.png">
+            </ion-thumbnail>
+            Plumber
+          </button>
+          <button ion-item (click)="searchButtonService('Electrician')">
+            <ion-thumbnail item-start>
+              <img src="./assets/img/AWA-12.png">
             </ion-thumbnail>
             Electrician
           </button>
 
-          <button ion-item (click)="clkACServic()">
+          <button ion-item (click)="searchButtonService('A/C')">
             <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-06.png">
+              <img src="./assets/img/AWA-06.png">
             </ion-thumbnail>
-            A/C Servic
+            A/C Service
           </button>
-          <button ion-item (click)="clkPlumber()">
+
+          <button ion-item (click)="searchButtonService('Welding')">
             <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-10.png">
-            </ion-thumbnail>
-            Plumber
-          </button>
-          <button ion-item (click)="clkWelding()">
-            <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-15.png">
+              <img src="./assets/img/AWA-15.png">
             </ion-thumbnail>
             Welding
           </button>
-          <button ion-item (click)="clkComputerNetworking()">
+          <button ion-item (click)="searchButtonService('Computer Networking')">
             <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-13.png">
+              <img src="./assets/img/AWA-13.png">
             </ion-thumbnail>
             Computer Networking
           </button>
-          <button ion-item (click)="clkPainter()">
+          <button ion-item (click)="searchButtonService('Painter')">
             <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-18.png">
+              <img src="./assets/img/AWA-12.png">
             </ion-thumbnail>
             Painter
           </button>
 
-          <button ion-item (click)="clkLandscaping()">
+          <button ion-item (click)="searchButtonService('Landscaping')">
             <ion-thumbnail item-start>
-              <img src="../assets/img/AWA-09.png">
+              <img src="./assets/img/AWA-09.png">
             </ion-thumbnail>
             Landscaping
           </button>
@@ -119,14 +133,13 @@
         <ion-card-title>
           Change Account settings
         </ion-card-title>
-        <ion-card-content>
-          <form novalidate [formGroup]="FrmUpdateProfile" (ngSubmit)="updateProfile(FrmUpdateProfile)">
+        <ion-card-content *ngIf="userData">
+          <form [formGroup]="FrmUpdateProfile">
 
             <ion-list>
-
               <ion-item>
                 <ion-label floating>First Name</ion-label>
-                <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'>{{userData.FirstName}}</ion-input>
+                <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'></ion-input>
               </ion-item>
 
 
@@ -136,7 +149,15 @@
               </ion-item>
               <ion-item>
                 <ion-label floating>Mobile Number</ion-label>
-                <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="number"></ion-input>
+                <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="tel" maxLength="10"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>New Password</ion-label>
+                <ion-input formControlName="Password" type="password"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Confirm Password</ion-label>
+                <ion-input formControlName="ConfirmPassword" type="password"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label floating>Current Address</ion-label>
@@ -144,12 +165,26 @@
               </ion-item>
               <ion-item>
                 <ion-label floating>Date of Birth</ion-label>
-                <ion-input formControlName="DateOfBirth" type="text" value='{{userData.DateOfBirth}}' placeholder="dd/mm/yyyy"></ion-input>
+                <ion-input formControlName="DOB" type="tel" maxLength="10" value='{{dateTime.date}}' placeholder="dd/mm/yyyy"></ion-input>
               </ion-item>
-
-              <ion-item>
+              
+                  <ion-list radio-group formControlName="Gender">
+                      
+                        <ion-item>
+                          <ion-label>Male</ion-label>
+                          <ion-radio checked="true" value="male"></ion-radio>
+                        </ion-item>
+          
+                        <ion-item>
+                          <ion-label>Female</ion-label>
+                          <ion-radio value="female"></ion-radio>
+                        </ion-item>
+                      
+                    </ion-list>
+             
+              
                 <button ion-button color="secondary" (click)="updateProfile()" block type="submit">Save</button>
-              </ion-item>
+              
             </ion-list>
 
           </form>
@@ -158,4 +193,5 @@
 
     </ion-list>
   </div>
+
 </ion-content>

@@ -6,60 +6,66 @@
 -->
 <ion-header>
 
-  <ion-navbar  color="secondary" >
-    <ion-title>Payments</ion-title>
-  </ion-navbar>
+	<ion-navbar color="secondary">
+		<ion-title>Payments</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="pageBg">
-		<form (ngSubmit)="logForm()">
-				<ion-item>
-						<ion-label floating><ion-icon name="card"></ion-icon>  Credit Card Number</ion-label>
-						<ion-input type="number" [(ngModel)]="FrmPayment.number" value="4242424242424242"  name="number"></ion-input>
-				</ion-item>
-				<ion-item>					
-						<ion-label><ion-icon name="calendar"></ion-icon>  Expiry Date</ion-label>						
-				</ion-item>
-				<ion-item >				
-						<ion-label>Year</ion-label>
-						<ion-select [(ngModel)]="FrmPayment.expYear" name="expYear" multiple="false">
-							<ion-option>2019</ion-option>
-							<ion-option>2020</ion-option>
-							<ion-option>2021</ion-option>
-							<ion-option>2022</ion-option>
-							<ion-option>2023</ion-option>
-							<ion-option>2024</ion-option>
-							<ion-option>2025</ion-option>
-							<ion-option>2026</ion-option>
-							<ion-option>2027</ion-option>
-							<ion-option>2028</ion-option>							
-						</ion-select>					
-			</ion-item>
-				<ion-item >				
-							<ion-label>Month</ion-label>
-							<ion-select [(ngModel)]="FrmPayment.expMonth" name="expMonth" multiple="false">
-								<ion-option>1</ion-option>
-								<ion-option>2</ion-option>
-								<ion-option>3</ion-option>
-								<ion-option>4</ion-option>
-								<ion-option>5</ion-option>
-								<ion-option>6</ion-option>
-								<ion-option>7</ion-option>
-								<ion-option>8</ion-option>
-								<ion-option>9</ion-option>
-								<ion-option>10</ion-option>
-								<ion-option>11</ion-option>
-								<ion-option>12</ion-option>
-							</ion-select>					
-				</ion-item>
-				<ion-item>
-						<ion-label floating><ion-icon name="briefcase"></ion-icon>  CVC</ion-label>
-						<ion-input type="number" value="220" [(ngModel)]="FrmPayment.cvc" name="cvc"></ion-input>
-				</ion-item>
-				
-				<button ion-button type="submit" height="45px" color="secondary" block>Pay </button>
-			</form>
-	
+	<div class="hint">
+		<h2>Hint</h2>
+		<p>Dear valued customer, You have to pay
+			<b>Rs.100.00</b> to use this service, but it is a non-refundable payment.</p>
+	</div>
+	<form>
+		<ion-item>
+			<ion-label floating>
+				<ion-icon name="card"></ion-icon> Credit Card Number</ion-label>
+			<ion-input type="tel" maxlength="16" [(ngModel)]="FrmPayment.number" name="number"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>
+				<ion-icon name="calendar"></ion-icon> Expiry Date</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label>Year</ion-label>
+			<ion-select [(ngModel)]="FrmPayment.expYear" name="expYear" multiple="false">
+				<ion-option>2019</ion-option>
+				<ion-option>2020</ion-option>
+				<ion-option>2021</ion-option>
+				<ion-option>2022</ion-option>
+				<ion-option>2023</ion-option>
+				<ion-option>2024</ion-option>
+				<ion-option>2025</ion-option>
+				<ion-option>2026</ion-option>
+				<ion-option>2027</ion-option>
+				<ion-option>2028</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>Month</ion-label>
+			<ion-select [(ngModel)]="FrmPayment.expMonth" name="expMonth" multiple="false">
+				<ion-option>1</ion-option>
+				<ion-option>2</ion-option>
+				<ion-option>3</ion-option>
+				<ion-option>4</ion-option>
+				<ion-option>5</ion-option>
+				<ion-option>6</ion-option>
+				<ion-option>7</ion-option>
+				<ion-option>8</ion-option>
+				<ion-option>9</ion-option>
+				<ion-option>10</ion-option>
+				<ion-option>11</ion-option>
+				<ion-option>12</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label floating>
+				<ion-icon name="briefcase"></ion-icon> CVC</ion-label>
+			<ion-input type="number" value="220" [(ngModel)]="FrmPayment.cvc" name="cvc"></ion-input>
+		</ion-item>
+		<button ion-button (click)="logForm()" height="45px" color="secondary" block>Pay </button>
+	</form>
 </ion-content>

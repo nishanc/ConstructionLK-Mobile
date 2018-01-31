@@ -14,18 +14,22 @@
 
 
 <ion-content padding  class="pageBg">
+    <div class="hint">
+        <h2>Hint</h2>
+        <p>You can add new services according to your skills.</p>
+      </div>
   <div>
     <form (ngSubmit)="logForm()">
       <ion-list>
         <ion-item>
-          <ion-label color="primary" stacked>Item Name</ion-label>
-          <ion-input value = "Malith Plumbing" type="text" placeholder="eg:Bawa Plumbing" [(ngModel)]="FrmAddNewService.ItemName" name="ItemName"></ion-input>
+          <ion-label color="primary" stacked>Service Name</ion-label>
+          <ion-input  type="text" placeholder="Eg:Bawa Plumbing" [(ngModel)]="FrmAddNewService.ItemName" name="ItemName"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label color="primary" stacked>Item Code</ion-label>
-          <ion-input type="text" placeholder="Unique code" [(ngModel)]="FrmAddNewService.ItemCode" name="ItemCode"></ion-input>
+          <ion-label color="primary" stacked>Service Code</ion-label>
+          <ion-input type="text" placeholder="Code for your reference" [(ngModel)]="FrmAddNewService.ItemCode" name="ItemCode"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item> 
           <ion-label color="primary" stacked>Main catagory ID</ion-label>
           <ion-select multiple="false" (ionChange)="onChange(FrmAddNewService.txtsupCatagory)" [(ngModel)]="FrmAddNewService.txtsupCatagory" name="txtsupCatagory" *ngIf = "supCatagory">
               <ion-option *ngFor = "let sup of supCatagory" value='{{sup.SupId}}'> {{sup.SupName}}</ion-option>           
@@ -33,7 +37,7 @@
         </ion-item>
         <ion-item *ngIf = "FrmAddNewService.txtsupCatagory">
           <ion-label  color="primary" stacked>Subcatagory ID</ion-label>
-          <ion-select  multiple="false"  *ngIf = "subCatagory"  [(ngModel)]="FrmAddNewService.SubCatagoryID" name="SubCatagoryID" >
+          <ion-select  multiple="false"  *ngIf = "subCatagory"  [(ngModel)]="FrmAddNewService.SubCategoryId" name="SubCategoryId" >
               <ion-option *ngFor = "let sub of subCatagory" value='{{sub.SubId}}'> {{sub.SubName}}</ion-option>           
             </ion-select>
         </ion-item>
@@ -46,10 +50,8 @@
           <ion-input type="text" placeholder="Available City" [(ngModel)]="FrmAddNewService.location" name="location"></ion-input>
           
         </ion-item>
-        
-          <ion-item>
-            <button ion-button height="45px" color="secondary"  block type="submit">ADD</button>
-          </ion-item>
+     
+           <button ion-button   color="secondary"  block type="submit">ADD</button>
       </ion-list>
     </form>
     

@@ -1,0 +1,83 @@
+<!--
+  Generated template for the RequestDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="secondary">
+    <ion-title>Request Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="pageBg" padding>
+    <div class="profDiv">
+        <ion-list>
+          <div *ngIf="requestData">
+              <img class="Style_img" src="./assets/img/User.png">
+            <h4>Client : {{requestData.CusName}}</h4> 
+            <ion-grid>
+              
+              <ion-row>
+                  <ion-col col-9 push-1>
+                    <p style="color:rgb(197, 190, 183); font-size:14pt">
+                        {{dateTime.date}} at {{dateTime.time}}
+                    </p>
+                  </ion-col>
+                  <ion-col col-1 pull-9>
+                    <p style="color:rgb(221, 177, 16); font-size:17pt">
+                        <ion-icon class="ico" name="clock"></ion-icon>            
+                    </p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-9 push-1>
+                      <p style="color:rgb(197, 190, 183); font-size:14pt">
+                           {{requestData.JobName}}
+                      </p>
+                    </ion-col>
+                    <ion-col col-1 pull-9>
+                      <p style="color:rgb(221, 177, 16); font-size:17pt">
+                          <ion-icon class="ico" name="hammer"></ion-icon>              
+                      </p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col col-9 push-1>
+                        <p style="color:rgb(197, 190, 183); font-size:14pt">
+                            {{requestData.Message}}
+                        </p>
+                      </ion-col>
+                      <ion-col col-1 pull-9>
+                        <p style="color:rgb(221, 177, 16); font-size:17pt">
+                            <ion-icon class="ico" name="mail-open"></ion-icon>              
+                        </p>
+                      </ion-col>
+                    </ion-row>
+              <ion-row>
+                  <!-- <h3>{{serviceDetails.Rate}} <ion-icon class="ico" name="star"></ion-icon></h3> -->
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-list>
+      </div>
+      <div #map id="map">
+                 
+      </div>
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+              <button ion-button height="20px" color="secondary" (click)=" requestResponse(true)" block>Accept</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button height="20px" color="danger" (click)=" requestResponse(false)" block>Denay</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid> 
+        <ion-fab right bottom>
+            <button ion-fab color="safe" (click)="callCustomer()"><ion-icon name="call"></ion-icon></button>            
+        </ion-fab>
+</ion-content>

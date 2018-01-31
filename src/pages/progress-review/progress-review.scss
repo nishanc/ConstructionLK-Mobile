@@ -1,9 +1,73 @@
 page-progress-review {
-    .scroll-content {
-        background-color: map-get($colors, light);
+    .pageBg{
+        background-color: #002B36;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 10pt;
+     }
+     .profDiv{
+        box-shadow: 2px;
+        background: rgba(139, 70, 67, 0.8);
+        border-radius: 10px;
+        margin: 5%;
+        padding: 20px;
+        padding-bottom: 10px;
+        width: 90%;
+       
     }
-
-    ion-card-header {
-        font-weight: bold;
+    .action-sheets-basic-page {
+        .ios-alert {
+          color: #ED4248;
+        }
+        .ion-md-arrow-dropright-circle {
+          color: #508AE4;
+        }
+        .ios-checkmark-circle {
+          color: #31D55F;
+        }
+        .action-sheet-cancel ion-icon,
+        .action-sheet-destructive ion-icon {
+          color: #757575;
+        }
+      }
+    ion-grid {
+        height: 100%;
+        
+        ion-row {
+          height:50px;
+        }
+        
     }
+    .hint{
+        justify-content: space-around;
+        background-color: rgb(209, 204, 198);
+        padding: 20px;
+        margin:5%;
+        border-radius: 20px;
+        width: 90%;
+    }
+     .text{
+        background-color: rgb(255, 255, 255);
+        padding-top: 20px;
+        padding-bottom: 10px;
+        padding-left: 10%;
+        padding-right: 10%;        
+        margin: 5%;
+        border-radius: 10px;
+        width: 90%;
+     }
+     .chart-wrapper {
+        width: 90%;
+        //display: inline-block;
+        margin: 5%;
+        height: 100%;
+        padding: 0px;
+     }
+     .can{
+         height: 100%;
+         width:100%;
+     }
 }

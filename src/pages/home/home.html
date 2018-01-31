@@ -22,18 +22,18 @@
             <ion-input type="text" placeholder="Username" formControlName="Username"></ion-input>
           </ion-item>
           <ion-item *ngIf="FrmLogin.get('Username').hasError('pattern') && FrmLogin.get('Username').touched">
-            <p class="error" *ngIf="FrmLogin.get('Username').hasError('pattern') && FrmLogin.get('Username').touched">Sorry, Insert valid email!</p>
+            <p class="error" *ngIf="FrmLogin.get('Username').hasError('pattern') && FrmLogin.get('Username').touched">*Sorry, Insert a valid email!</p>
           </ion-item>
 
           <ion-item *ngIf="FrmLogin.get('Username').hasError('required') && FrmLogin.get('Username').touched">
-            <p class="error" *ngIf="FrmLogin.get('Username').hasError('required') && FrmLogin.get('Username').touched">Sorry, field Password is required!</p>
+            <p class="error" *ngIf="FrmLogin.get('Username').hasError('required') && FrmLogin.get('Username').touched">*Sorry, field Username is required!</p>
           </ion-item>
 
           <ion-item>
             <ion-input type="password" placeholder="Password" formControlName="Password"></ion-input>
           </ion-item>
           <ion-item *ngIf="FrmLogin.get('Password').hasError('required') && FrmLogin.get('Password').touched">
-            <p class="error" *ngIf="FrmLogin.get('Password').hasError('required') && FrmLogin.get('Password').touched">Sorry, field Address is required!</p>
+            <p class="error" *ngIf="FrmLogin.get('Password').hasError('required') && FrmLogin.get('Password').touched">Sorry, field Password is required!</p>
           </ion-item>
 
         </ion-list>
@@ -45,14 +45,14 @@
 
       </form>
       <p class="p">OR</p>
-      <button ion-button block icon-left color="facebook" >
+      <!-- <button ion-button block icon-left color="facebook" class="fb" >
          
         <ion-icon name="logo-facebook"></ion-icon>
          Login with facebook
-      </button>
+      </button> -->
      
-      <a class="a" (click)="forgotPassword()">Forgot your login details?</a>
-      <button ion-button clear class="btn" (click)="signup()" type="submit">create a new account</button>
+      <a class="a" (click)="forgotPassword()">Forgot password?</a>
+      <button ion-button block class="btnSignup"  (click)="signup()" type="submit">create a new account</button>
     </ion-card-content>
   </ion-card>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, MenuController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, MenuController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { SignUpPage } from '../sign-up/sign-up';
 import { ProfilePage } from '../client-profile/client-profile'
@@ -28,19 +28,20 @@ export class HomePage implements OnInit {
     public slideMenu: MenuController,
     public navCtrl: NavController,
     public http: Http,
+    public toastCtrl: ToastController,
     public loadingController: LoadingController,
     private LoginFormBuilder: FormBuilder,
     private alertCtrl: AlertController,
     public storage: Storage) {
-      
-    this.slideMenu.swipeEnable(true);
+    
+    this.slideMenu.swipeEnable(false);
   }
   postLogin() {
-    let loading = this.loadingController.create({content : "Logging in, please wait..."});
+    let loading = this.loadingController.create({content : "Logging in..."});
     loading.present();
     this.UserDetails = this.FrmLogin.value;
     this.parameters = 'username=' + this.UserDetails.Username + '&password=' + this.UserDetails.Password + '&grant_type=password';
-    console.log(this.parameters);
+    
     let postParams = this.parameters;
     var headers = new Headers();
     headers.append("Content-Type", 'application/x-www-form-urlencoded');
@@ -76,11 +77,13 @@ export class HomePage implements OnInit {
       this.UserRole = roles;
         console.log("User is a ", this.UserRole.roles[0]);
         if(this.UserRole.roles[0]== 'Customer'){
+          this.showToast('Login Successful!');
           this.navCtrl.push(ProfilePage); //Push to cutomer profile
-          this.storage.set('CurrntRootPage', 'ProfilePage');
+          
         }else{
+          this.showToast('Login Successful!');
           this.navCtrl.push(ConstructorProfilePage); //Push to cconstructor profile
-          this.storage.set('CurrntRootPage', 'ConstructorProfilePage');
+          
         }
     }, error => {
       console.log(error);
@@ -107,7 +110,13 @@ export class HomePage implements OnInit {
       Password: ['', Validators.required],
     });
   }
-
+  showToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+  }
 
 
 }

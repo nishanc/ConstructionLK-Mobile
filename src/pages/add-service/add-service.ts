@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { ConstructorProfilePage } from '../constructor-profile/constructor-profile';
 
 @IonicPage()
 @Component({
@@ -9,7 +10,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'add-service.html',
 })
 export class AddServicePage {
-
+  
   private supCatagory: any;
   private subCatagory: any;
   private FrmAddNewService = {};
@@ -26,6 +27,7 @@ export class AddServicePage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,    
     private http: Http,
+    public toastCtrl: ToastController,
     public storage: Storage,
     private alertCtrl: AlertController) {
     this.getSubCatagories();
@@ -33,7 +35,13 @@ export class AddServicePage {
       this.Id = val;
     });
   }
-
+  showToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+  }
   logForm() {
     this.ServiceData = this.FrmAddNewService;
     this.ServiceData.UserId = this.Id;
@@ -43,8 +51,8 @@ export class AddServicePage {
     console.log(this.latLangURL);
     this.http.get( this.latLangURL).map(res => res.json())
     .subscribe(data => {
-      this.locationData = data;
-      
+      this.locationData = data;  
+      console.log('data '+data);    
       console.log(this.locationData.results[0]);
       this.geometryData = this.locationData.results[0];
       console.log(this.geometryData.geometry.location);
@@ -59,15 +67,19 @@ export class AddServicePage {
                   console.log(this.ServiceData);
                   this.servicelocation = this.geometryData.geometry.location;
                   console.log(this.servicelocation);
-                  this.ServiceData.location = this.servicelocation;    
+                  this.ServiceData.location = this.servicelocation; 
+                  
                   var headers = new Headers();
                   headers.append("Accept", 'application/json');
-                  let options = new RequestOptions({ headers: headers });       
+                  let options = new RequestOptions({ headers: headers });
+                  delete this.ServiceData.txtsupCatagory;       
                   let postParams =  this.ServiceData;  
-                  console.log(this.ServiceData);
-                  this.http.post('http://constructionlkapi.azurewebsites.net/ItemService/AddNewService', postParams, options)
-                    .subscribe(data => {
-                      console.log("Service Added");        
+                  console.log(postParams);
+                  console.log("Service data :" + this.ServiceData);
+                  this.http.post('http://constructionlkapi.azurewebsites.net/ItemService/AddNewService2', postParams, options)
+                    .subscribe(data => {                      
+                      this.showToast('Service Added!');
+                      this.navCtrl.push(ConstructorProfilePage);     
                     }, error => {
                       let alert = this.alertCtrl.create({
                         title: 'Sorry',
@@ -83,9 +95,6 @@ export class AddServicePage {
       });
      
       alert.present();
-     
-      
-      
     }, error => {
       alert(error);
     });

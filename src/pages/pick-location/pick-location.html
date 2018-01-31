@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>
+      Service Location
+    </ion-title>
+    <ion-buttons end>      
+      <button ion-button icon-only (click)='choosePosition()'>
+        <ion-icon name="ios-locate-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<div class="currentitem" *ngIf="currentregional">
+  <button ion-item no-lines (click)="viewPlace(currentregional.title)">
+    <h2>{{ currentregional.title }}</h2>
+    <ion-note item-right icon-only><ion-icon name="ios-arrow-forward"></ion-icon></ion-note>
+  </button>
+</div>
+
+<ion-content class="pageBg">
+  <div class="map" [class.hidemap]="!((switch == 'map') || error)">
+    <ion-searchbar #searchbar placeholder="Search a Location" ></ion-searchbar>
+    <div id="map" #map></div>    
+  </div>
+  <div class="hint">
+    <h2>Hint</h2>
+    <p>You can add additional location from here one after another.</p>
+  </div>
+  <button ion-button icon-start class="btnSend" ion-button [disabled]="!lat" color="secondary" block (click)="setLocation()">Update Location</button>   
+</ion-content>

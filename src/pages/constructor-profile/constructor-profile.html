@@ -20,7 +20,7 @@
     <ion-segment-button (click)=" getRequests()" value="home">
       <ion-icon name="home"></ion-icon>
     </ion-segment-button>
-    <ion-segment-button value="services">
+    <ion-segment-button (click)="getMyServices()" value="services">
       <ion-icon md="md-hammer" name="hammer"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="settings" color="secondary">
@@ -31,72 +31,164 @@
   <div [ngSwitch]="ConstructorMenu">
     <ion-list *ngSwitchCase="'profile'">
       <div class="profDiv" *ngIf="userData">
-        <img class="Style_img" src="../assets/img/profile.jpg">
+        <img *ngIf="imgSrc" src="{{imgSrc}}" >
+       
+        <h3 style="color:rgb(245, 245, 245);">{{userData.CompanyName}} </h3>
+        <h3 style="color:rgb(245, 245, 245);">{{userData.FirstName}} {{userData.LastName}} </h3>
         
-        <h3 style="color:rgb(245, 245, 245);">{{userData.FirstName}} {{userData.LastName}}</h3>
-        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="mail"></ion-icon>  {{userData.Username}}</p>
-        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="pin"></ion-icon>  {{userData.MailingAddress}}</p>
-        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="phone-portrait"></ion-icon>  {{userData.Telephone}}</p>
-        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="bulb"></ion-icon>  {{userData.Bio}}</p>
-        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="tablet-landscape"></ion-icon>  {{userData.CompanyName}}</p>
-        <p style="color:rgb(221, 177, 16); font-size:13pt"><ion-icon class="ico" name="ribbon"></ion-icon>  {{userData.CompanyRegNo}}</p>
-
         <ion-grid>
             <ion-row>
-              <ion-col style="background-color:rgb(241, 234, 237);  font-size:12pt" >Freelancer</ion-col>
-              <ion-col style="background-color:rgb(0, 0, 0); font-size:12pt"><ion-icon  name="star"></ion-icon><ion-icon  name="star"></ion-icon><ion-icon  name="star"></ion-icon><ion-icon  name="star"></ion-icon></ion-col>
+              <ion-col col-9 push-1 >
+                   <p class="pDetails">
+                {{userData.Username}}
+              </p>
+              </ion-col>
+              <ion-col col-1 pull-9>
+                  <p style="color:rgb(221, 177, 16); font-size:13pt">
+                      <ion-icon class="ico" name="mail"></ion-icon>
+                  </p>
+              </ion-col>
             </ion-row>
-           
+            <ion-row>
+                <ion-col col-9 push-1 >
+                     <p class="pDetails">
+                  {{userData.BasedCity}}
+                </p>
+                </ion-col>
+                <ion-col col-1 pull-9>
+                    <p style="color:rgb(221, 177, 16); font-size:13pt">
+                        <ion-icon class="ico" name="ios-locate"></ion-icon>
+                    </p>
+                </ion-col>
+              </ion-row>
+            <ion-row>
+              <ion-col col-9 push-1 >
+                   <p class="pDetails">
+                {{userData.MailingAddress}}
+              </p>
+              </ion-col>
+              <ion-col col-1 pull-9>
+                  <p style="color:rgb(221, 177, 16); font-size:13pt">
+                      <ion-icon class="ico" name="pin"></ion-icon>
+                  </p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-9 push-1 >
+                     <p class="pDetails">
+                  {{userData.Telephone}}
+                </p>
+                </ion-col>
+                <ion-col col-1 pull-9>
+                    <p style="color:rgb(221, 177, 16); font-size:13pt">
+                        <ion-icon class="ico" name="ios-phone-portrait"></ion-icon>
+                    </p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-9 push-1 >
+                       <p class="pDetails">
+                    {{userData.Bio}}
+                  </p>
+                  </ion-col>
+                  <ion-col col-1 pull-9>
+                      <p style="color:rgb(221, 177, 16); font-size:13pt">
+                          <ion-icon class="ico" name="bulb"></ion-icon>
+                      </p>
+                  </ion-col>
+                </ion-row>
+                
+                  <ion-row *ngIf="userData.CompanyRegNo">
+                      <ion-col col-9 push-1 >
+                           <p class="pDetails">
+                        {{userData.CompanyRegNo}}
+                      </p>
+                      </ion-col>
+                      <ion-col col-1 pull-9>
+                          <p style="color:rgb(221, 177, 16); font-size:13pt">
+                              <ion-icon class="ico" name="ribbon"></ion-icon>
+                          </p>
+                      </ion-col>
+                    </ion-row>
           </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col style="background-color:rgb(223, 194, 30);height:35px; font-size:12pt">
+             
+              <p *ngIf="userData.FirstName">Frelancer</p>
+            </ion-col>
+            <ion-col style="background-color:rgb(0, 0, 0);height:35px; font-size:12pt">
+              
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
       </div>
     </ion-list>
-
-
-
     <!--_________________Home tab_____________-->
     <ion-list *ngSwitchCase="'home'">
       <ion-item>
-          <p>New requests</p>
-          <div *ngIf = "requests">
-              <ion-list>
-              <ion-item *ngFor = "let req of requests">
+        <h2>New requests</h2>
+        <div *ngIf="requests">
+          <ion-list>
+            <ion-item *ngFor="let req of requests"  (click)="moreRequestData(req)">
+              <ion-avatar item-start>
+                <img src="./assets/img/User.png">
+              </ion-avatar>
+              <h2>{{ req.CusName }}</h2>
+             
+              <p>
+                <ion-badge style="background-color:rgb(10, 10, 10); width:100px" item-left>{{ req.Time }}</ion-badge>
+                <ion-badge style="background-color:rgb(204, 201, 13); width:50%" item-right>New</ion-badge>
+            </p>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-item>
+      <ion-item>
+        <h2>Accepted requests</h2>
+        <div *ngIf="acceptedRequests">
+            <ion-list>
+              <ion-item *ngFor="let req of acceptedRequests"  (click)="moreAcceptedRequestData(req)">
                 <ion-avatar item-start>
-                  <img src= "../assets/img/User.png">
+                  <img src="./assets/img/ok-icon.png">
                 </ion-avatar>
-                <h2>{{ req.CusName }}</h2>
-                <p><ion-badge item-right>{{ req.Time }}</ion-badge></p>                
-                <ion-badge item-right>
-                  <button ion-button (click) =  "moreSearchData(req.Id)">Details>></button></ion-badge>
+                <h2>{{ req.User }}</h2>
+               
+                <p>
+                  <ion-badge style="background-color:rgb(10, 10, 10); width:79px" item-left>{{ req.Date }}</ion-badge>
+                  <ion-badge style="background-color:rgb(204, 201, 13); width:50%" item-right>Accepted</ion-badge>
+              </p>
               </ion-item>
             </ion-list>
           </div>
-      </ion-item>
-      <ion-item>
-          <p>Accepted requests</p>
       </ion-item>
     </ion-list>
 
     <!--_________________Sevices tab_____________-->
     <ion-list *ngSwitchCase="'services'">
       <ion-card>
-        <ion-list>
-          <ion-item class="styleStatus">
-            <ion-label>Status</ion-label>
-            <ion-toggle class="toggle" [(ngModel)]="status"></ion-toggle>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-
-
-      <ion-card>
 
         <ion-card-content>
           <ion-card-title>
             My services
           </ion-card-title>
-          <p>
-            The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
-          </p>
+          <div *ngIf="myServices">
+            <ion-list>
+              <ion-item *ngFor="let service of myServices" (click)="moreServiceData(service.Id)">
+                <ion-avatar item-start>
+                  <img src="./assets/img/service.png">
+                </ion-avatar>
+                <h2>{{ service.Name }}</h2>
+              </ion-item>
+            </ion-list>
+          </div>
+
+
           <button ion-button icon-start (click)="addService()">
             <ion-icon name="add-circle"></ion-icon>
             new service
@@ -110,51 +202,72 @@
     <ion-list *ngSwitchCase="'settings'">
 
       <form *ngIf="form" [formGroup]="form" (ngSubmit)="postUpadtedProfile()">
-        <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
-        <div class="profile-image-wrapper" (click)="getPicture()">
-          <div class="profile-image-placeholder" *ngIf="!this.form.controls.profilePic.value">
-            <ion-icon name="add"></ion-icon>
-            <div>
-              choose profile picture
-            </div>
-          </div>
-          <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.profilePic.value"></div>
-        </div>
+        
 
         <ion-card>
-
-          <ion-card-content>
-
+            <!-- <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+            <div class="profile-image-wrapper" (click)="getPicture()">
+              <div class="profile-image-placeholder" *ngIf="!this.form.controls.Avatar.value">
+                <ion-icon name="add"></ion-icon>
+                <div>
+                  choose profile picture
+                </div>
+              </div>
+              <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.Avatar.value"></div>
+            </div> -->
+          <ion-card-content *ngIf = "userData">
             <ion-list>
               <ion-item>
                 <ion-label floating>First Name</ion-label>
-                <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'>{{userData.FirstName}}</ion-input>
+                <ion-input formControlName="FirstName" type="text" value='{{userData.FirstName}}'></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label floating>Last Name</ion-label>
                 <ion-input formControlName="LastName" type="text" value='{{userData.LastName}}'></ion-input>
               </ion-item>
               <ion-item>
+                <ion-label floating>New Password</ion-label>
+                <ion-input formControlName="Password" type="password"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Confirm Password</ion-label>
+                <ion-input formControlName="ConfirmPassword" type="password"></ion-input>
+              </ion-item>
+              <ion-item>
                 <ion-label floating>Mailing Address</ion-label>
                 <ion-input formControlName="MailingAddress" type="text" value='{{userData.MailingAddress}}'></ion-input>
               </ion-item>
-              <ion-item >                     
-                  <ion-label floating>Mobile Number</ion-label>
-                  <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="number"></ion-input>
-                </ion-item>
+              <ion-item>
+                <ion-label floating>Mobile Number</ion-label>
+                <ion-input formControlName="Telephone" value='{{userData.Telephone}}' type="tel" maxlength="10"></ion-input>
+              </ion-item>
               <ion-item>
                 <ion-label floating>Short Bio</ion-label>
                 <ion-textarea formControlName="Bio" type="text" value='{{userData.Bio}}'></ion-textarea>
               </ion-item>
-              
+
               <ion-item>
                 <ion-label floating>Current Address</ion-label>
                 <ion-input formControlName="BasedCity" value='{{userData.BasedCity}}' type="text"></ion-input>
               </ion-item>
-             
+
               <ion-item>
-                <button ion-button color="secondary"  block type="submit">Save</button>
+                <ion-label floating>Company Name</ion-label>
+                <ion-input formControlName="CompanyName" value='{{userData.CompanyName}}' type="text"></ion-input>
               </ion-item>
+
+              <!-- <ion-item>
+                <ion-label floating>Company Registration No.</ion-label>
+                <ion-input formControlName="CompanyRegNo" value='{{userData.CompanyRegNo}}' type="text"></ion-input>
+              </ion-item> -->
+              <!-- <ion-item>
+                <ion-label floating>Company Start date</ion-label>
+                <ion-input  formControlName="StartedDate" placeholder="mm/dd/yyyy" value='{{userData.StartedDate}}' type="text"></ion-input>
+              </ion-item> -->
+              <ion-item>
+                <button ion-button color="secondary" block type="submit">Save</button>
+              </ion-item>
+              
             </ion-list>
           </ion-card-content>
         </ion-card>

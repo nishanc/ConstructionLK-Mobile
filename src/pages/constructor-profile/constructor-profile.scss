@@ -1,5 +1,28 @@
 
 page-constructor-profile {
+  ion-grid {
+    height: 100%;
+    
+    ion-row {
+      height:50px;
+    }
+    
+  }
+  ion-badge{
+    width: 37%;
+    height: 20px;
+  }
+    .lstBtn{
+      height: 10px;    
+    }
+    ion-col{
+      width: 20px;
+      height: 20px;
+    }
+    .pDetails{
+      color:rgb(221, 177, 16);
+      font-size:13pt;
+    }
     .pageBg{
       background-color: #002B36;
       align-content: center;
@@ -65,9 +88,9 @@ page-constructor-profile {
       box-shadow: 2px;
       background: rgba(97, 51, 51, 0.8);
       border-radius: 10px;
-      margin: 10px;
+      margin: 4%;
       padding: 20px;
-     
+      width:96%;
     }
     styleStatus{
       border-radius: 10px;
@@ -80,7 +103,7 @@ page-constructor-profile {
     }
     .ico{
       font-size: 25px;
-      color: rgb(17, 212, 105);
+      color: rgb(59, 240, 128);
     }
     
     
